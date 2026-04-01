@@ -1,0 +1,391 @@
+/*
+ * =============================================
+ * 主样式文件 - main.css
+ * 包含全局样式重置、基础样式和框架定制
+ * =============================================
+ */
+
+/* 
+ * =============================================
+ * HTML元素基础样式重置
+ * =============================================
+ */
+
+/* 
+ * HTML根元素基础设置
+ * 设置页面的基础背景色和文字颜色
+ * 字体大小预留选项可按需启用
+ */
+html {
+    background-color: #fff;    /* 设置页面背景色为白色 */
+    color: #000;               /* 设置默认文字颜色为黑色 */
+    /* font-size: 12px */      /* 字体大小预留选项，可根据设计需求启用 */
+}
+
+/* 
+ * HTML和BODY高度设置为100%
+ * 确保页面内容能够占满整个视窗高度
+ */
+html,
+body {
+    height: 100%;              /* 设置高度为100%，使页面占满整个视窗 */
+    margin: 0;                 /* 清除浏览器默认的外边距 */
+    padding: 0;                /* 清除浏览器默认的内边距 */
+}
+
+/* 
+ * 通用元素重置
+ * 清除所有元素的默认内外边距
+ * 包括：body, ul, ol, dl, dd, h1-h6, figure, form, fieldset, legend, input, 
+ * textarea, button, p, blockquote, th, td, pre, xmp等
+ * 这是CSS重置的重要部分，确保跨浏览器一致性
+ */
+body,
+ul,
+ol,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+figure,
+form,
+fieldset,
+legend,
+input,
+textarea,
+button,
+p,
+blockquote,
+th,
+td,
+pre,
+xmp {
+    margin: 0;                 /* 清除浏览器默认外边距 */
+    padding: 0;                /* 清除浏览器默认内边距 */
+}
+
+/* 
+ * 文本元素基础样式设置
+ * 统一设置文本元素的行高和字体族
+ * 包括：字体行高、字体族设置
+ * 行高1.5倍提高文本可读性，字体族按优先级排列
+ */
+body,
+input,
+textarea,
+button,
+select,
+pre,
+xmp,
+tt,
+code,
+kbd,
+samp {
+    line-height: 1.5;          /* 设置行高为1.5倍，提高文本可读性 */
+    font-family: tahoma, arial, "Hiragino Sans GB", simsun, sans-serif; /* 设置字体族，优先使用中文字体 */
+}
+
+/* 
+ * 标题及表单元素字体大小重置
+ * 防止浏览器对这些元素应用默认字体大小
+ * 保持字体大小的一致性
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+small,
+big,
+input,
+textarea,
+button,
+select {
+    font-size: 100%;           /* 重置字体大小为继承值，避免浏览器默认样式 */
+}
+
+/* 
+ * 标题元素字体族设置
+ * 为标题元素设置专门的字体族
+ * 优先使用中文字体，提高中文显示效果
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: tahoma, arial, "Hiragino Sans GB", "微软雅黑", simsun, sans-serif; /* 为标题设置字体族，优先使用中文字体 */
+}
+
+/* 
+ * 标题、粗体元素字体权重重置
+ * 统一使用正常字体权重而非浏览器默认的粗体
+ * 保持设计的一致性
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+strong {
+    font-weight: normal;       /* 重置字体粗细为正常，覆盖浏览器默认粗体 */
+}
+
+/* 
+ * 斜体元素样式重置
+ * 统一取消斜体样式
+ * 保持文本样式的统一性
+ */
+address,
+cite,
+dfn,
+em,
+i,
+optgroup,
+var {
+    font-style: normal;        /* 取消斜体样式，保持文本一致性 */
+}
+
+/* 
+ * 表格样式重置
+ * 设置表格边框合并、间距为0
+ * 确保表格在各浏览器中的一致性显示
+ */
+table {
+    border-collapse: collapse; /* 合并相邻边框，消除单元格间距 */
+    border-spacing: 0;         /* 设置单元格间距为0 */
+    text-align: left;          /* 设置文本对齐方式为左对齐 */
+}
+
+caption,
+th {
+    text-align: inherit;       /* 表格标题和表头继承父元素对齐方式 */
+}
+
+/* 
+ * 列表样式重置
+ * 移除默认列表标记
+ * 提供干净的列表基础样式
+ */
+ul,
+ol,
+menu {
+    list-style: none;          /* 移除列表项目符号或编号 */
+}
+
+/* 
+ * 特定元素边框重置
+ * 防止fieldset和img元素出现默认边框
+ * 确保这些元素在各浏览器中的一致性
+ */
+fieldset,
+img {
+    border: 0;                 /* 清除默认边框 */
+}
+
+/* 
+ * 媒体和表单元素垂直对齐
+ * 保持元素基线对齐
+ * 确保这些元素在行内对齐一致
+ */
+img,
+object,
+input,
+textarea,
+button,
+select {
+    vertical-align: middle;    /* 设置垂直对齐方式为居中，保持基线对齐 */
+}
+
+/* 
+ * HTML5语义化元素显示设置
+ * 确保HTML5新元素在老版本浏览器中正确显示
+ * 为HTML5语义化元素设置display: block
+ */
+article,
+aside,
+footer,
+header,
+section,
+nav,
+figure,
+figcaption,
+hgroup,
+details,
+menu {
+    display: block;            /* 设置HTML5语义化元素为块级元素显示 */
+}
+
+/* 
+ * 多媒体元素显示设置
+ * 确保多媒体元素在各浏览器中一致显示
+ * 特别处理IE浏览器的兼容性
+ */
+audio,
+canvas,
+video {
+    display: inline-block;     /* 设置为内联块元素，保持宽高比 */
+    display: inline;           /* 为某些浏览器提供备选显示方式 */
+    zoom: 1;                   /* 触发IE的hasLayout属性，解决显示问题 */
+}
+
+/* 
+ * 引用元素内容设置
+ * 清除引用元素前后的自动生成内容
+ * 防止默认的引号或其他字符出现
+ */
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "\0020";         /* 插入空格字符，替代默认的引号 */
+}
+
+/* 
+ * 文本域滚动和调整设置
+ * 控制文本域的滚动和大小调整行为
+ */
+textarea {
+    overflow: auto;            /* 超出内容区域时自动显示滚动条 */
+    resize: vertical;           /* 允许用户垂直方向调整文本域大小 */
+}
+
+/* 
+ * 表单和链接元素轮廓重置
+ * 清除浏览器默认的焦点轮廓
+ * 为自定义焦点样式提供基础
+ */
+input,
+textarea,
+button,
+select,
+a {
+    outline: 0 none;           /* 清除浏览器默认焦点轮廓 */
+    border: none;              /* 清除默认边框 */
+}
+
+/* 
+ * 按钮和输入框内部焦点样式重置
+ * 针对Firefox浏览器的特殊处理
+ * 清除Firefox默认的内部焦点样式
+ */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    padding: 0;                /* 清除内部填充 */
+    border: 0;                 /* 清除内部边框 */
+}
+
+/* 
+ * 高亮元素背景重置
+ * 清除mark元素默认背景色
+ * 提供干净的高亮元素基础样式
+ */
+mark {
+    background-color: transparent; /* 设置背景为透明，覆盖默认黄色背景 */
+}
+
+/* 
+ * 文本装饰元素样式重置
+ * 移除各种文本装饰（下划线、删除线等）
+ * 为自定义文本样式提供基础
+ */
+a,
+ins,
+s,
+u,
+del {
+    text-decoration: none;     /* 移除默认文本装饰，如下划线、删除线等 */
+}
+
+/* 
+ * 上下标元素基线对齐
+ * 设置上下标元素与基线对齐
+ * 确保上下标在文本行中的正确位置
+ */
+sup,
+sub {
+    vertical-align: baseline;  /* 设置垂直对齐方式为基线，调整上下标位置 */
+}
+
+/* 
+ * HTML根元素增强设置
+ * 包含移动端优化和字体大小设置
+ * 为响应式设计提供基础
+ */
+html {
+    overflow-x: hidden;        /* 隐藏水平滚动条，防止不必要的滚动 */
+    height: 100%;              /* 设置高度为100%，配合body实现全屏布局 */
+    font-size: 50px;           /* 设置基准字体大小，用于rem单位计算，适配移动端 */
+    -webkit-tap-highlight-color: transparent; /* 移除移动端点击时的高亮效果 */
+}
+
+/* 
+ * BODY元素样式设置
+ * 定义页面默认字体、颜色和行高
+ * 设置全局基础样式
+ */
+body {
+    font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif; /* 设置主要字体族，中英文混合环境优化 */
+    color: #333;               /* 设置默认文字颜色，深灰色便于阅读 */
+    font-size: .28em;          /* 设置默认字体大小，基于rem的相对单位 */
+    line-height: 1;            /* 设置行高，保持紧凑的排版 */
+    -webkit-text-size-adjust: none; /* 禁用iOS Safari的字体大小自动调整功能 */
+}
+
+/* 
+ * 分隔线样式设置
+ * 定义hr元素的外观
+ * 创建视觉分割效果
+ */
+hr {
+    height: .02rem;            /* 设置分隔线高度，使用rem单位保持响应式 */
+    margin: .1rem 0;           /* 设置上下外边距，左右外边距为0 */
+    border: medium none;       /* 清除默认边框样式 */
+    border-top: .02rem solid #cacaca; /* 仅设置顶部边框作为分隔线 */
+}
+
+/* 
+ * 链接样式设置
+ * 定义链接的默认颜色和装饰
+ * 确保链接样式的统一性
+ */
+a {
+    color: #25a4bb;            /* 设置链接颜色，蓝色系便于识别 */
+    text-decoration: none;     /* 移除默认下划线，保持页面整洁 */
+}
+
+/* 
+ * =============================================
+ * Element UI组件样式定制
+ * 针对特定UI组件的样式调整
+ * =============================================
+ */
+
+/* 
+ * Element UI文本域内部滚动条隐藏
+ * 隐藏文本域的滚动条但仍保留滚动功能
+ * 优化用户体验，提供简洁美观的界面
+ */
+.el-textarea__inner {
+    -webkit-scrollbar: none;   /* 隐藏Webkit内核浏览器(Chrome/Safari)滚动条 */
+    scrollbar-width: none;     /* 隐藏Firefox浏览器滚动条 */
+    -ms-overflow-style: none;  /* 隐藏IE浏览器滚动条 */
+    resize: none !important;   /* 禁止用户调整文本域大小，保持布局稳定 */
+    border-radius: 6px;        /* 设置圆角边框，提供现代化外观 */
+}
+
+/* 
+ * 隐藏Webkit内核浏览器滚动条（另一种写法）
+ * 针对特定情况的额外处理
+ */
+.el-textarea__inner::-webkit-scrollbar {
+    display: none !important;  /* 强制隐藏滚动条，确保在各种情况下生效 */
+}
