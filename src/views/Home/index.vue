@@ -579,6 +579,7 @@ export default {
             // 判断是否是手机
             isApp: false,
             isCollapsed: true,
+            searchTimer: null, // 防抖定时器
             currentWorkstation: '',
             currentOrder: '',
             monthlySequence: '',
@@ -633,6 +634,10 @@ export default {
     },
     beforeDestroy() {
         window.removeEventListener('resize', this.setTableMaxHeight);
+        // 清理防抖定时器
+        if (this.searchTimer) {
+            clearTimeout(this.searchTimer);
+        }
     },
     computed: {
         // 计算单据状态
@@ -937,19 +942,44 @@ export default {
             };
         },
         // 处理订单搜索
+        // 处理订单搜索
         handleOrderSearch() {
-            const params = this.buildQueryParams();
-            this.getData(params);
+            // 清除之前的定时器
+            if (this.searchTimer) {
+                clearTimeout(this.searchTimer);
+            }
+
+            // 设置新的定时器（500ms后执行）
+            this.searchTimer = setTimeout(() => {
+                const params = this.buildQueryParams();
+                this.getData(params);
+            }, 500);
         },
         // 处理月顺序号搜索
         handleMonthlySequenceSearch() {
-            const params = this.buildQueryParams();
-            this.getData(params);
+            // 清除之前的定时器
+            if (this.searchTimer) {
+                clearTimeout(this.searchTimer);
+            }
+
+            // 设置新的定时器（500ms后执行）
+            this.searchTimer = setTimeout(() => {
+                const params = this.buildQueryParams();
+                this.getData(params);
+            }, 500);
         },
         // 处理车架号搜索
         handleFrameNumberSearch() {
-            const params = this.buildQueryParams();
-            this.getData(params);
+            // 清除之前的定时器
+            if (this.searchTimer) {
+                clearTimeout(this.searchTimer);
+            }
+
+            // 设置新的定时器（500ms后执行）
+            this.searchTimer = setTimeout(() => {
+                const params = this.buildQueryParams();
+                this.getData(params);
+            }, 500);
         },
         // 处理检验项是否处置变化
         handleInspectionIsHandleChange(inspection) {
