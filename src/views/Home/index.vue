@@ -7,22 +7,32 @@
           <!-- 右侧：当前订单输入框和折叠按钮 -->
           <div class="right-panel">
             <div class="order-input">
-              <el-input v-model="currentOrder" placeholder="当前订单" size="small" class="order-field">
+              <el-input
+                v-model="currentOrder"
+                placeholder="当前订单"
+                size="small"
+                class="order-field"
+              >
                 <el-button
-                    slot="append" style="margin-right: 5px" icon="el-icon-search"
-                    @click="handleOrderSearch"
+                  slot="append"
+                  style="margin-right: 5px"
+                  icon="el-icon-search"
+                  @click="handleOrderSearch"
                 ></el-button>
                 <el-button
-                    slot="append" icon="el-icon-full-screen" @click="onCamera('wipOrderNo')"
-                    v-if="isApp"
+                  slot="append"
+                  icon="el-icon-full-screen"
+                  @click="onCamera('wipOrderNo')"
+                  v-if="isApp"
                 >
                 </el-button>
               </el-input>
-
             </div>
 
             <div class="toggle-icon" @click="toggleCollapse">
-              <i :class="isCollapsed ? 'el-icon-arrow-down' : 'el-icon-arrow-up'"></i>
+              <i
+                :class="isCollapsed ? 'el-icon-arrow-down' : 'el-icon-arrow-up'"
+              ></i>
             </div>
           </div>
         </div>
@@ -46,13 +56,25 @@
               <div class="input-section">
                 <div class="input-row">
                   <div class="input-label">月顺序号</div>
-                  <el-input v-model="monthlySequence" placeholder="请输入月顺序号" size="small" class="input-field">
+                  <el-input
+                    v-model="monthlySequence"
+                    placeholder="请输入月顺序号"
+                    size="small"
+                    class="input-field"
+                  >
                     <el-button
-                        slot="append" style="margin-right: 5px" icon="el-icon-search"
-                        @click="handleMonthlySequenceSearch"
+                      slot="append"
+                      style="margin-right: 5px"
+                      icon="el-icon-search"
+                      @click="handleMonthlySequenceSearch"
                     >
                     </el-button>
-                    <el-button slot="append" icon="el-icon-full-screen" @click="onCamera('monthSequence')" v-if="isApp">
+                    <el-button
+                      slot="append"
+                      icon="el-icon-full-screen"
+                      @click="onCamera('monthSequence')"
+                      v-if="isApp"
+                    >
                     </el-button>
                   </el-input>
                 </div>
@@ -60,17 +82,23 @@
                 <div class="input-row">
                   <div class="input-label">车架号</div>
                   <el-input
-                      v-model="frameNumber" placeholder="请输入车架号" size="small"
-                      class="input-field"
+                    v-model="frameNumber"
+                    placeholder="请输入车架号"
+                    size="small"
+                    class="input-field"
                   >
                     <el-button
-                        slot="append" style="margin-right: 5px" icon="el-icon-search"
-                        @click="handleFrameNumberSearch"
+                      slot="append"
+                      style="margin-right: 5px"
+                      icon="el-icon-search"
+                      @click="handleFrameNumberSearch"
                     >
                     </el-button>
                     <el-button
-                        slot="append" icon="el-icon-full-screen" @click="onCamera('vin')"
-                        v-if="isApp"
+                      slot="append"
+                      icon="el-icon-full-screen"
+                      @click="onCamera('vin')"
+                      v-if="isApp"
                     >
                     </el-button>
                   </el-input>
@@ -100,46 +128,82 @@
         <div class="section-header">
           <span class="section-title">检验项</span>
           <el-radio-group v-model="showIsHandle" size="small">
-            <el-radio-button label='0'>未处置</el-radio-button>
-            <el-radio-button label='1'>已处置未确认</el-radio-button>
-            <el-radio-button label='2'>已确认已确认</el-radio-button>
+            <el-radio-button label="0">未处置</el-radio-button>
+            <el-radio-button label="1">已处置未确认</el-radio-button>
+            <el-radio-button label="2">已确认已确认</el-radio-button>
           </el-radio-group>
         </div>
         <div class="problem-list">
           <div
-              v-for="(inspection, index) in filteredInspectionList"
-              :key="inspection.questionId" class="problem-item"
-              @click='(customDisable(inspection) || inspection.testAttribute === "OK") === false ? handleOpenDialog(inspection,index,"inspection"): null'
+            v-for="(inspection, index) in filteredInspectionList"
+            :key="inspection.questionId"
+            class="problem-item"
+            @click="
+              (customDisable(inspection) ||
+                inspection.testAttribute === 'OK') === false
+                ? handleOpenDialog(inspection, index, 'inspection')
+                : null
+            "
           >
             <div class="problem-content">
               <div class="problem-row">
                 <span class="problem-label">检验项{{ index + 1 }}：</span>
                 <el-input
-                    v-model="inspection.dispositionDesc" class="problem-input"
-                    type="textarea"
-                    autosize
-                    disabled
+                  v-model="inspection.dispositionDesc"
+                  class="problem-input"
+                  type="textarea"
+                  autosize
+                  disabled
                 >
                 </el-input>
-                <el-button type="primary" size="small" @click="pushFeiShu(inspection,'inspection')" class='push-btn' :disabled='inspection.pushStatus === 1'>
+                <el-button
+                  type="primary"
+                  size="small"
+                  @click="pushFeiShu(inspection, 'inspection')"
+                  class="push-btn"
+                  :disabled="inspection.pushStatus === 1"
+                >
                   推送
                 </el-button>
               </div>
               <div class="problem-row">
                 <span class="problem-label">描述：</span>
                 <el-input
-                    v-model="inspection.dxDesc" class="problem-input"
-                    type="textarea"
-                    autosize
-                    disabled
+                  v-model="inspection.dxDesc"
+                  class="problem-input"
+                  type="textarea"
+                  autosize
+                  disabled
                 >
                 </el-input>
+              </div>
+              <div
+                class="problem-row"
+                v-if="inspection.fileList && inspection.fileList.length > 0"
+              >
+                <span class="problem-label">文件：</span>
+                <div class="file-list">
+                  <div
+                    v-for="(file, fileIndex) in inspection.fileList"
+                    :key="fileIndex"
+                    class="file-item"
+                    @click.stop="handleFilePreview(file)"
+                  >
+                    <i :class="getFileIcon(file.name)"></i>
+                    <span class="file-name">{{ file.name }}</span>
+                  </div>
+                </div>
               </div>
               <!--检验结论-->
               <div class="problem-row">
                 <span class="problem-label">检验结论：</span>
                 <div class="radio-group-container">
-                  <el-radio-group disabled v-model="inspection.testAttribute" size="small" style="padding-top: 8px">
+                  <el-radio-group
+                    disabled
+                    v-model="inspection.testAttribute"
+                    size="small"
+                    style="padding-top: 8px"
+                  >
                     <el-radio label="OK">OK</el-radio>
                     <el-radio label="NG">NG</el-radio>
                   </el-radio-group>
@@ -148,17 +212,25 @@
               <!-- 检验人 -->
               <div class="problem-row">
                 <span class="problem-label">检验人：</span>
-                <el-input v-model="inspection.testBy" class="problem-input" disabled>
+                <el-input
+                  v-model="inspection.testBy"
+                  class="problem-input"
+                  disabled
+                >
                 </el-input>
               </div>
               <!-- 是否处置 -->
               <div class="problem-row" v-if="inspection.testAttribute === 'NG'">
-                <span style="color: #409EFF" class="problem-label">是否处置：</span>
+                <span style="color: #409eff" class="problem-label"
+                  >是否处置：</span
+                >
                 <div class="radio-group-container">
                   <el-radio-group
-                      v-model="inspection.isHandle" size="small" style="padding-top: 8px"
-                      @change="handleInspectionIsHandleChange(inspection)"
-                      :disabled="true||customDisable(inspection)"
+                    v-model="inspection.isHandle"
+                    size="small"
+                    style="padding-top: 8px"
+                    @change="handleInspectionIsHandleChange(inspection)"
+                    :disabled="true || customDisable(inspection)"
                   >
                     <el-radio :label="0">否</el-radio>
                     <el-radio :label="1">是</el-radio>
@@ -167,48 +239,71 @@
               </div>
               <!-- 处置措施 -->
               <div class="problem-row" v-if="inspection.testAttribute === 'NG'">
-                <span
-                    style="color: #409EFF" class="problem-label"
-                >处置措施：</span>
+                <span style="color: #409eff" class="problem-label"
+                  >处置措施：</span
+                >
                 <el-input
-                    v-model="inspection.handleReMark" class="problem-input"
-                    type="textarea"
-                    autosize
-                    v-keyboard-focus
-                    :disabled="customDisable(inspection)"
+                  v-model="inspection.handleReMark"
+                  class="problem-input"
+                  type="textarea"
+                  autosize
+                  v-keyboard-focus
+                  :disabled="customDisable(inspection)"
                 >
                 </el-input>
               </div>
               <!-- 处置人 -->
               <div class="problem-row" v-if="inspection.testAttribute === 'NG'">
                 <span class="problem-label">处置人：</span>
-                <el-input v-model="inspection.handleBy" class="problem-input" disabled>
+                <el-input
+                  v-model="inspection.handleBy"
+                  class="problem-input"
+                  disabled
+                >
                 </el-input>
               </div>
               <!-- 是否确认 -->
-              <div class="problem-row" v-if="inspection.testAttribute === 'NG' && showIsHandle === '2'">
+              <div
+                class="problem-row"
+                v-if="inspection.testAttribute === 'NG' && showIsHandle === '2'"
+              >
                 <span class="problem-label">是否确认：</span>
                 <div class="radio-group-container">
-                  <el-radio-group v-model="inspection.isClose" size="small" disabled>
+                  <el-radio-group
+                    v-model="inspection.isClose"
+                    size="small"
+                    disabled
+                  >
                     <el-radio :label="0">否</el-radio>
                     <el-radio :label="1">是</el-radio>
                   </el-radio-group>
                 </div>
               </div>
               <!-- 确认人 -->
-              <div class="problem-row" v-if="inspection.testAttribute === 'NG' && showIsHandle === '2'">
+              <div
+                class="problem-row"
+                v-if="inspection.testAttribute === 'NG' && showIsHandle === '2'"
+              >
                 <span class="problem-label">确认人：</span>
-                <el-input v-model="inspection.confirmBy" class="problem-input" disabled>
+                <el-input
+                  v-model="inspection.confirmBy"
+                  class="problem-input"
+                  disabled
+                >
                 </el-input>
               </div>
               <!-- 确认备注 -->
-              <div class="problem-row" v-if="inspection.testAttribute === 'NG' && showIsHandle === '2'">
+              <div
+                class="problem-row"
+                v-if="inspection.testAttribute === 'NG' && showIsHandle === '2'"
+              >
                 <span class="problem-label">确认备注：</span>
                 <el-input
-                    v-model="inspection.confirmReMark" class="problem-input"
-                    type="textarea"
-                    autosize
-                    disabled
+                  v-model="inspection.confirmReMark"
+                  class="problem-input"
+                  type="textarea"
+                  autosize
+                  disabled
                 >
                 </el-input>
               </div>
@@ -223,21 +318,34 @@
         </div>
         <div class="problem-list">
           <div
-              v-for="(problem, index) in filteredProblemList"
-              :key="problem.questionId" class="problem-item"
-              @click='customDisable(problem) === false ? handleOpenDialog(problem,index,"problem"): null'
+            v-for="(problem, index) in filteredProblemList"
+            :key="problem.questionId"
+            class="problem-item"
+            @click="
+              customDisable(problem) === false
+                ? handleOpenDialog(problem, index, 'problem')
+                : null
+            "
           >
             <div class="problem-content">
               <div class="problem-row">
                 <span class="problem-label">问题{{ index + 1 }}：</span>
                 <el-input
-                    v-model="problem.question" placeholder="请输入问题描述" class="problem-input"
-                    type="textarea"
-                    autosize
-                    disabled
+                  v-model="problem.question"
+                  placeholder="请输入问题描述"
+                  class="problem-input"
+                  type="textarea"
+                  autosize
+                  disabled
                 >
                 </el-input>
-                <el-button type="primary" size="small" @click="pushFeiShu(problem,'problem')" class='push-btn' :disabled='problem.pushStatus === 1'>
+                <el-button
+                  type="primary"
+                  size="small"
+                  @click="pushFeiShu(problem, 'problem')"
+                  class="push-btn"
+                  :disabled="problem.pushStatus === 1"
+                >
                   推送
                 </el-button>
               </div>
@@ -248,10 +356,16 @@
                   <div class="image-display-container">
                     <div class="image-list-horizontal">
                       <div
-                          v-for="(image, imgIndex) in problem.imageList" :key="imgIndex"
-                          class="image-item" @click="handlePictureCardPreview(image)"
+                        v-for="(image, imgIndex) in problem.imageList"
+                        :key="imgIndex"
+                        class="image-item"
+                        @click="handlePictureCardPreview(image)"
                       >
-                        <img :src="image.url" :alt="image.name" class="displayed-image">
+                        <img
+                          :src="image.url"
+                          :alt="image.name"
+                          class="displayed-image"
+                        />
                       </div>
                     </div>
                   </div>
@@ -260,17 +374,26 @@
               <!-- 检验人 -->
               <div class="problem-row">
                 <span class="problem-label">检验人：</span>
-                <el-input v-model="problem.testBy" placeholder="检验人" class="problem-input" disabled>
+                <el-input
+                  v-model="problem.testBy"
+                  placeholder="检验人"
+                  class="problem-input"
+                  disabled
+                >
                 </el-input>
               </div>
               <!-- 是否处置 -->
               <div class="problem-row">
-                <span style="color: #409EFF" class="problem-label">是否处置：</span>
+                <span style="color: #409eff" class="problem-label"
+                  >是否处置：</span
+                >
                 <div class="radio-group-container">
                   <el-radio-group
-                      v-model="problem.isHandle" size="small" style="padding-top: 8px"
-                      @change="handleIsHandleChange(problem)"
-                      :disabled="true||customDisable(problem)"
+                    v-model="problem.isHandle"
+                    size="small"
+                    style="padding-top: 8px"
+                    @change="handleIsHandleChange(problem)"
+                    :disabled="true || customDisable(problem)"
                   >
                     <el-radio :label="0">否</el-radio>
                     <el-radio :label="1">是</el-radio>
@@ -279,29 +402,45 @@
               </div>
               <!-- 处置措施 -->
               <div class="problem-row">
-                <span style="color: #409EFF" class="problem-label">处置措施：</span>
+                <span style="color: #409eff" class="problem-label"
+                  >处置措施：</span
+                >
                 <el-input
-                    v-model="problem.handleReMark" placeholder="请输入处置措施" class="problem-input"
-                    v-keyboard-focus type="textarea" autosize :disabled="customDisable(problem)"
+                  v-model="problem.handleReMark"
+                  placeholder="请输入处置措施"
+                  class="problem-input"
+                  v-keyboard-focus
+                  type="textarea"
+                  autosize
+                  :disabled="customDisable(problem)"
                 >
                 </el-input>
               </div>
               <!-- 处置图片 -->
               <div class="problem-row">
-                <span style="color: #409EFF" class="problem-label">处置图片：</span>
+                <span style="color: #409eff" class="problem-label"
+                  >处置图片：</span
+                >
                 <div class="image-upload-section">
                   <div class="image-upload-container">
                     <!-- 图片列表水平滚动 -->
                     <div class="image-scroll-container">
                       <div class="image-list-horizontal">
                         <div
-                            v-for="(image, imgIndex) in problem.handImageList" :key="imgIndex"
-                            class="image-item" @click="handleHandPictureCardPreview(image)"
+                          v-for="(image, imgIndex) in problem.handImageList"
+                          :key="imgIndex"
+                          class="image-item"
+                          @click="handleHandPictureCardPreview(image)"
                         >
-                          <img :src="image.url" :alt="image.name" class="uploaded-image">
+                          <img
+                            :src="image.url"
+                            :alt="image.name"
+                            class="uploaded-image"
+                          />
                           <div class="image-actions">
                             <i
-                                class="el-icon-delete" v-if="!customDisable(problem)"
+                              class="el-icon-delete"
+                              v-if="!customDisable(problem)"
                             ></i>
                           </div>
                         </div>
@@ -316,46 +455,66 @@
               <!-- 处置人 -->
               <div class="problem-row">
                 <span class="problem-label">处置人：</span>
-                <el-input v-model="problem.handleBy" class="problem-input" disabled>
+                <el-input
+                  v-model="problem.handleBy"
+                  class="problem-input"
+                  disabled
+                >
                 </el-input>
               </div>
               <!-- 是否确认 -->
-              <div class="problem-row" v-if='showIsHandle === "2"'>
+              <div class="problem-row" v-if="showIsHandle === '2'">
                 <span class="problem-label">是否确认：</span>
                 <div class="radio-group-container">
-                  <el-radio-group v-model="problem.isClose" size="small" disabled>
+                  <el-radio-group
+                    v-model="problem.isClose"
+                    size="small"
+                    disabled
+                  >
                     <el-radio :label="0">否</el-radio>
                     <el-radio :label="1">是</el-radio>
                   </el-radio-group>
                 </div>
               </div>
               <!-- 确认人 -->
-              <div class="problem-row" v-if='showIsHandle === "2"'>
+              <div class="problem-row" v-if="showIsHandle === '2'">
                 <span class="problem-label">确认人：</span>
-                <el-input v-model="problem.confirmBy" class="problem-input" disabled>
+                <el-input
+                  v-model="problem.confirmBy"
+                  class="problem-input"
+                  disabled
+                >
                 </el-input>
               </div>
               <!-- 确认备注 -->
-              <div class="problem-row" v-if='showIsHandle === "2"'>
+              <div class="problem-row" v-if="showIsHandle === '2'">
                 <span class="problem-label">确认备注：</span>
                 <el-input
-                    v-model="problem.confirmReMark" class="problem-input"
-                    type="textarea"
-                    autosize disabled
+                  v-model="problem.confirmReMark"
+                  class="problem-input"
+                  type="textarea"
+                  autosize
+                  disabled
                 >
                 </el-input>
               </div>
               <!--图片展示区域 -->
-              <div class="problem-row" v-if='showIsHandle === "2"'>
+              <div class="problem-row" v-if="showIsHandle === '2'">
                 <span class="problem-label">确认图片：</span>
                 <div class="image-display-section">
                   <div class="image-display-container">
                     <div class="image-list-horizontal">
                       <div
-                          v-for="(image, imgIndex) in problem.confirmImageList" :key="imgIndex"
-                          class="image-item" @click="handlePictureCardPreview(image)"
+                        v-for="(image, imgIndex) in problem.confirmImageList"
+                        :key="imgIndex"
+                        class="image-item"
+                        @click="handlePictureCardPreview(image)"
                       >
-                        <img :src="image.url" :alt="image.name" class="displayed-image">
+                        <img
+                          :src="image.url"
+                          :alt="image.name"
+                          class="displayed-image"
+                        />
                       </div>
                     </div>
                   </div>
@@ -373,19 +532,24 @@
     </div>
 
     <!-- 图片预览对话框 -->
-    <el-dialog :visible.sync="dialogVisible" :append-to-body="true" fullscreen @close="resetPreviewTransform">
+    <el-dialog
+      :visible.sync="dialogVisible"
+      :append-to-body="true"
+      fullscreen
+      @close="resetPreviewTransform"
+    >
       <div class="image-preview-container" @wheel.prevent="handleWheel">
         <img
-            ref="previewImage"
-            :src="dialogImageUrl"
-            alt=""
-            class="preview-image"
-            :style="previewImageStyle"
-            @load="onImageLoad"
-            @touchstart="handleTouchStart"
-            @touchmove="handleTouchMove"
-            @touchend="handleTouchEnd"
-        >
+          ref="previewImage"
+          :src="dialogImageUrl"
+          alt=""
+          class="preview-image"
+          :style="previewImageStyle"
+          @load="onImageLoad"
+          @touchstart="handleTouchStart"
+          @touchmove="handleTouchMove"
+          @touchend="handleTouchEnd"
+        />
       </div>
       <div class="image-preview-toolbar">
         <button @click="zoomIn" class="toolbar-btn">+</button>
@@ -395,24 +559,32 @@
       </div>
     </el-dialog>
     <!-- 检验项编辑对话框 -->
-    <el-dialog :visible.sync="dialogTestVisible" :append-to-body="true" fullscreen :showClose='true' style='padding: 0'>
+    <el-dialog
+      :visible.sync="dialogTestVisible"
+      :append-to-body="true"
+      fullscreen
+      :showClose="true"
+      style="padding: 0"
+    >
       <div class="problem-row">
         <span class="problem-label">检验项{{ dialogIndex + 1 }}：</span>
         <el-input
-            v-model="dialogTestData.dispositionDesc" class="problem-input"
-            type="textarea"
-            autosize
-            disabled
+          v-model="dialogTestData.dispositionDesc"
+          class="problem-input"
+          type="textarea"
+          autosize
+          disabled
         >
         </el-input>
       </div>
       <div class="problem-row">
         <span class="problem-label">描述：</span>
         <el-input
-            v-model="dialogTestData.dxDesc" class="problem-input"
-            type="textarea"
-            autosize
-            disabled
+          v-model="dialogTestData.dxDesc"
+          class="problem-input"
+          type="textarea"
+          autosize
+          disabled
         >
         </el-input>
       </div>
@@ -420,7 +592,12 @@
       <div class="problem-row">
         <span class="problem-label">检验结论：</span>
         <div class="radio-group-container">
-          <el-radio-group disabled v-model="dialogTestData.testAttribute" size="small" style="padding-top: 8px">
+          <el-radio-group
+            disabled
+            v-model="dialogTestData.testAttribute"
+            size="small"
+            style="padding-top: 8px"
+          >
             <el-radio label="OK">OK</el-radio>
             <el-radio label="NG">NG</el-radio>
           </el-radio-group>
@@ -429,16 +606,22 @@
       <!-- 检验人 -->
       <div class="problem-row">
         <span class="problem-label">检验人：</span>
-        <el-input v-model="dialogTestData.testBy" class="problem-input" disabled>
+        <el-input
+          v-model="dialogTestData.testBy"
+          class="problem-input"
+          disabled
+        >
         </el-input>
       </div>
       <!-- 是否处置 -->
       <div class="problem-row">
-        <span style="color: #409EFF" class="problem-label">是否处置：</span>
+        <span style="color: #409eff" class="problem-label">是否处置：</span>
         <div class="radio-group-container">
           <el-radio-group
-              v-model="dialogTestData.isHandle" size="small" style="padding-top: 8px"
-              @change="handleInspectionIsHandleChange(dialogTestData)"
+            v-model="dialogTestData.isHandle"
+            size="small"
+            style="padding-top: 8px"
+            @change="handleInspectionIsHandleChange(dialogTestData)"
           >
             <el-radio :label="0">否</el-radio>
             <el-radio :label="1">是</el-radio>
@@ -447,35 +630,52 @@
       </div>
       <!-- 处置措施 -->
       <div class="problem-row">
-        <span style="color: #409EFF" class="problem-label">处置措施：</span>
+        <span style="color: #409eff" class="problem-label">处置措施：</span>
         <el-input
-            v-model="dialogTestData.handleReMark" class="problem-input"
-            type="textarea"
-            autosize
-            v-keyboard-focus
+          v-model="dialogTestData.handleReMark"
+          class="problem-input"
+          type="textarea"
+          autosize
+          v-keyboard-focus
         >
         </el-input>
       </div>
       <!-- 处置人 -->
       <div class="problem-row">
         <span class="problem-label">处置人：</span>
-        <el-input v-model="dialogTestData.handleBy" class="problem-input" disabled>
+        <el-input
+          v-model="dialogTestData.handleBy"
+          class="problem-input"
+          disabled
+        >
         </el-input>
       </div>
       <div class="fixed-action-buttons">
-        <el-button type="primary" @click="handleCloseDialog('HandleInspection')" class="save-btn">保存并返回
+        <el-button
+          type="primary"
+          @click="handleCloseDialog('HandleInspection')"
+          class="save-btn"
+          >保存并返回
         </el-button>
       </div>
     </el-dialog>
     <!-- 问题项编辑对话框 -->
-    <el-dialog :visible.sync="dialogProblemVisible" :append-to-body="true" fullscreen :showClose='true' style='padding: 0'>
+    <el-dialog
+      :visible.sync="dialogProblemVisible"
+      :append-to-body="true"
+      fullscreen
+      :showClose="true"
+      style="padding: 0"
+    >
       <div class="problem-row">
         <span class="problem-label">问题{{ dialogIndex + 1 }}：</span>
         <el-input
-            v-model="dialogProblemData.question" placeholder="请输入问题描述" class="problem-input"
-            type="textarea"
-            autosize
-            disabled
+          v-model="dialogProblemData.question"
+          placeholder="请输入问题描述"
+          class="problem-input"
+          type="textarea"
+          autosize
+          disabled
         >
         </el-input>
       </div>
@@ -486,10 +686,16 @@
           <div class="image-display-container">
             <div class="image-list-horizontal">
               <div
-                  v-for="(image, imgIndex) in dialogProblemData.imageList" :key="imgIndex"
-                  class="image-item" @click="handlePictureCardPreview(image)"
+                v-for="(image, imgIndex) in dialogProblemData.imageList"
+                :key="imgIndex"
+                class="image-item"
+                @click="handlePictureCardPreview(image)"
               >
-                <img :src="image.url" :alt="image.name" class="displayed-image">
+                <img
+                  :src="image.url"
+                  :alt="image.name"
+                  class="displayed-image"
+                />
               </div>
             </div>
           </div>
@@ -498,16 +704,23 @@
       <!-- 检验人 -->
       <div class="problem-row">
         <span class="problem-label">检验人：</span>
-        <el-input v-model="dialogProblemData.testBy" placeholder="检验人" class="problem-input" disabled>
+        <el-input
+          v-model="dialogProblemData.testBy"
+          placeholder="检验人"
+          class="problem-input"
+          disabled
+        >
         </el-input>
       </div>
       <!-- 是否处置 -->
       <div class="problem-row">
-        <span style="color: #409EFF" class="problem-label">是否处置：</span>
+        <span style="color: #409eff" class="problem-label">是否处置：</span>
         <div class="radio-group-container">
           <el-radio-group
-              v-model="dialogProblemData.isHandle" size="small" style="padding-top: 8px"
-              @change="handleIsHandleChange(dialogProblemData)"
+            v-model="dialogProblemData.isHandle"
+            size="small"
+            style="padding-top: 8px"
+            @change="handleIsHandleChange(dialogProblemData)"
           >
             <el-radio :label="0">否</el-radio>
             <el-radio :label="1">是</el-radio>
@@ -516,20 +729,28 @@
       </div>
       <!-- 处置措施 -->
       <div class="problem-row">
-        <span style="color: #409EFF" class="problem-label">处置措施：</span>
+        <span style="color: #409eff" class="problem-label">处置措施：</span>
         <el-input
-            v-model="dialogProblemData.handleReMark" placeholder="请输入处置措施" class="problem-input"
-            v-keyboard-focus type="textarea" autosize
+          v-model="dialogProblemData.handleReMark"
+          placeholder="请输入处置措施"
+          class="problem-input"
+          v-keyboard-focus
+          type="textarea"
+          autosize
         >
         </el-input>
       </div>
       <!-- 处置图片 -->
       <div class="problem-row">
-        <span style="color: #409EFF" class="problem-label">处置图片：</span>
+        <span style="color: #409eff" class="problem-label">处置图片：</span>
         <div class="image-upload-section">
           <div class="image-upload-container">
             <!-- 移动端上传按钮 -->
-            <div v-if='!customDisable(dialogProblemData)' class="mobile-upload-btn" @click="handleMobileUpload(dialogProblemData.questionId)">
+            <div
+              v-if="!customDisable(dialogProblemData)"
+              class="mobile-upload-btn"
+              @click="handleMobileUpload(dialogProblemData.questionId)"
+            >
               <i class="el-icon-plus"></i>
               <div class="upload-text">添加图片</div>
             </div>
@@ -537,14 +758,23 @@
             <div class="image-scroll-container">
               <div class="image-list-horizontal">
                 <div
-                    v-for="(image, imgIndex) in dialogProblemData.handImageList" :key="imgIndex"
-                    class="image-item" @click="handleHandPictureCardPreview(image)"
+                  v-for="(image, imgIndex) in dialogProblemData.handImageList"
+                  :key="imgIndex"
+                  class="image-item"
+                  @click="handleHandPictureCardPreview(image)"
                 >
-                  <img :src="image.url" :alt="image.name" class="uploaded-image">
+                  <img
+                    :src="image.url"
+                    :alt="image.name"
+                    class="uploaded-image"
+                  />
                   <div class="image-actions">
                     <i
-                        class="el-icon-delete" v-if="!customDisable(dialogProblemData)"
-                        @click.stop="removeSingleHandImage(dialogProblemData, imgIndex)"
+                      class="el-icon-delete"
+                      v-if="!customDisable(dialogProblemData)"
+                      @click.stop="
+                        removeSingleHandImage(dialogProblemData, imgIndex)
+                      "
                     ></i>
                   </div>
                 </div>
@@ -556,11 +786,19 @@
       <!-- 处置人 -->
       <div class="problem-row">
         <span class="problem-label">处置人：</span>
-        <el-input v-model="dialogProblemData.handleBy" class="problem-input" disabled>
+        <el-input
+          v-model="dialogProblemData.handleBy"
+          class="problem-input"
+          disabled
+        >
         </el-input>
       </div>
       <div class="fixed-action-buttons">
-        <el-button type="primary" @click="handleCloseDialog('HandleQuestion')" class="save-btn">保存并返回
+        <el-button
+          type="primary"
+          @click="handleCloseDialog('HandleQuestion')"
+          class="save-btn"
+          >保存并返回
         </el-button>
       </div>
     </el-dialog>
@@ -571,732 +809,844 @@
 import keyboardMixin from "@/utils/keyboardMixin";
 
 export default {
-    name: 'HomeView',
-    mixins: [keyboardMixin],
-    components: {},
-    data() {
-        return {
-            // 判断是否是手机
-            isApp: false,
-            isCollapsed: true,
-            searchTimer: null, // 防抖定时器
-            currentWorkstation: '',
-            currentOrder: '',
-            monthlySequence: '',
-            frameNumber: '',
-            modelCode: '',
+  name: "HomeView",
+  mixins: [keyboardMixin],
+  components: {},
+  data() {
+    return {
+      // 判断是否是手机
+      isApp: false,
+      isCollapsed: true,
+      searchTimer: null, // 防抖定时器
+      currentWorkstation: "",
+      currentOrder: "",
+      monthlySequence: "",
+      frameNumber: "",
+      modelCode: "",
 
-            // 新增数据
-            tableMaxHeight: 300,
-            inspectionList: [],
-            problemList: [],
-            nextProblemId: 1,
+      // 新增数据
+      tableMaxHeight: 300,
+      inspectionList: [],
+      problemList: [],
+      nextProblemId: 1,
 
-            // 图片上传相关
-            dialogImageUrl: '',
-            dialogVisible: false,
+      // 图片上传相关
+      dialogImageUrl: "",
+      dialogVisible: false,
 
-            // 图片预览缩放相关
-            previewScale: 1,
-            previewTranslateX: 0,
-            previewTranslateY: 0,
-            startTouchDistance: 0,
-            startTouchScale: 1,
+      // 图片预览缩放相关
+      previewScale: 1,
+      previewTranslateX: 0,
+      previewTranslateY: 0,
+      startTouchDistance: 0,
+      startTouchScale: 1,
 
-            // 新增：存储查询返回的原始数据
-            originalData: {
-                workStation: "",
-                wipOrderNo: "",
-                productNo: "",
-                monthSequence: "",
-                vin: "",
-                dispositionItem: [],
-                questionItem: []
-            },
+      // 新增：存储查询返回的原始数据
+      originalData: {
+        workStation: "",
+        wipOrderNo: "",
+        productNo: "",
+        monthSequence: "",
+        vin: "",
+        dispositionItem: [],
+        questionItem: [],
+      },
 
-            // 单项操作
-            dialogTestData: {},
-            dialogTestVisible: false,
-            dialogProblemData: {},
-            dialogProblemVisible: false,
-            dialogIndex: -1,
-            pushFlag: false,
+      // 单项操作
+      dialogTestData: {},
+      dialogTestVisible: false,
+      dialogProblemData: {},
+      dialogProblemVisible: false,
+      dialogIndex: -1,
+      pushFlag: false,
 
-            // 标签页
-            showIsHandle: '0'
-        }
-    },
-    mounted() {
-        this.isApp = this.isAppEnvironment();
-        // 设置表格最大高度为屏幕的1/3
-        this.setTableMaxHeight();
-        window.addEventListener('resize', this.setTableMaxHeight);
-    },
-    beforeDestroy() {
-        window.removeEventListener('resize', this.setTableMaxHeight);
-        // 清理防抖定时器
-        if (this.searchTimer) {
-            clearTimeout(this.searchTimer);
-        }
-    },
-    computed: {
-        // 计算单据状态
-        documentStatus() {
-            return this.originalData.orderStatus === 3 ? '已关闭' : '检验中';
-        },
-
-        // 计算检验结果
-        inspectionResult() {
-            return this.problemList.every(item => item.isClose === 1) ? '合格' : '不合格';
-        },
-
-
-        // 过滤后的检验项列表
-        filteredInspectionList() {
-            if (this.showIsHandle === '0') {
-                // 显示未处置的项目（排除 testAttribute 为 'OK' 的项目）
-                return this.inspectionList.filter(inspection => inspection.isHandle !== 1 && inspection.testAttribute !== 'OK');
-            } else if (this.showIsHandle === '1') {
-                // 显示已处置未确认的项目
-                return this.inspectionList.filter(inspection => inspection.isHandle === 1 && inspection.isClose !== 1 || inspection.testAttribute === 'OK');
-            } else {
-                // 显示已处置已确认的项目
-                return this.inspectionList.filter(inspection => inspection.isHandle === 1 && inspection.isClose === 1);
-            }
-        },
-
-        // 过滤后的问题列表
-        filteredProblemList() {
-            if (this.showIsHandle === '0') {
-                // 显示未处置的问题
-                return this.problemList.filter(problem => problem.isHandle !== 1);
-            } else if (this.showIsHandle === '1') {
-                // 显示已处置未确认的问题
-                return this.problemList.filter(problem => problem.isHandle === 1 && problem.isClose !== 1);
-            } else {
-                // 显示已处置已确认的问题
-                return this.problemList.filter(problem => problem.isHandle === 1 && problem.isClose === 1);
-            }
-        },
-
-        // 图片预览样式计算属性
-        previewImageStyle() {
-            return {
-                transform: `scale(${this.previewScale}) translate(${this.previewTranslateX}px, ${this.previewTranslateY}px)`,
-                transition: this.isTransitioning ? 'transform 0.2s ease' : 'none'
-            };
-        }
-    },
-    methods: {
-        handleCloseDialog(type) {
-            let saveData = {}
-            if (type === 'HandleInspection') {
-                this.dialogTestVisible = false;
-                console.log(this.dialogTestData, 'HandleInspection')
-                let aa = {
-                    ...this.dialogTestData
-                }
-                const dispositionId = aa.dispositionId
-                const isHandle = aa.isHandle
-                const handleReMark = aa.handleReMark
-                console.log(dispositionId, 'questionId', isHandle, 'isHandle', handleReMark, 'handleReMark')
-                saveData = {
-                    flag: type,
-                    id: dispositionId,
-                    isHandle: isHandle,
-                    handleReMark: handleReMark,
-                }
-                console.log(saveData, 'saveData')
-                // 保存数据
-                window.InspectionOnlineSingleSave(saveData, (res) => {
-                    this.inspectionList.find(item => item.dispositionId === saveData.id).handleBy = res.handleBy;
-
-                })
-            } else if (type === 'HandleQuestion') {
-                this.dialogProblemVisible = false;
-                console.log(this.dialogProblemData, 'HandleQuestion')
-                let aa = {
-                    ...this.dialogProblemData
-                }
-                console.log(aa, 'aa')
-                const questionId = aa.questionId
-                const isHandle = aa.isHandle
-                const handleReMark = aa.handleReMark
-                const handImgs = aa.handImgs
-                console.log(questionId, 'questionId', isHandle, 'isHandle', handleReMark, 'handleReMark', handImgs, 'handImgs')
-                saveData = {
-                    flag: type,
-                    id: questionId,
-                    isHandle: isHandle,
-                    handleReMark: handleReMark,
-                    handleImg: handImgs,
-                }
-                console.log(saveData, 'saveData')
-                // 保存数据
-                window.InspectionOnlineSingleSave(saveData, (res) => {
-                    this.problemList.find(item => item.questionId === saveData.id).handleBy = res.handleBy;
-                })
-            }
-            console.log(saveData, 'saveData')
-        },
-        handleOpenDialog(item, index, type) {
-            if (this.pushFlag) {
-                this.pushFlag = false
-                return
-            }
-            this.dialogIndex = index;
-            if (type === 'inspection') {
-                this.dialogTestData = item;
-                // 避免图片预览被覆盖
-                this.dialogTestVisible = this.dialogVisible !== true;
-                console.log(this.dialogTestData)
-            } else if (type === 'problem') {
-                this.dialogProblemData = item;
-                // 避免图片预览被覆盖
-                this.dialogProblemVisible = this.dialogVisible !== true;
-                console.log(this.dialogProblemData)
-            }
-        },
-        // 推送飞书
-        pushFeiShu(data, type) {
-            this.pushFlag = true
-            this.$msgbox({
-                title: '推送飞书',
-                message: '是否推送飞书？再次推送需要退出重进',
-                showCancelButton: true,
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning',
-                customClass: 'my-message-box',
-            }).then(() => {
-                let pushData = {
-                    ...this.originalData
-                }
-                if (type === 'inspection') {
-                    pushData = {
-                        ...pushData,
-                        dispositionItem: this.originalData.dispositionItem.filter(
-                            item => item.dispositionId === data.dispositionId
-                                && item.testAttribute !== 'OK'
-                                && item.dxDesc !== ''
-                                && item.dispositionDesc !== ''),
-                        questionItem: []
-                    }
-                    data.pushStatus = 1
-                } else if (type === 'problem') {
-                    pushData = {
-                        ...pushData,
-                        questionItem: this.originalData.questionItem.filter(item => item.questionId === data.questionId && item.question !== ''),
-                        dispositionItem: []
-                    }
-                    data.pushStatus = 1
-                }
-                console.log(pushData, '推送飞书')
-                window.pushFeiShu(pushData, (res) => {
-                    if (res.code === '0') {
-                        this.$message({
-                            message: '推送飞书成功',
-                            type: 'success',
-                            duration: 500,
-                            showClose: true
-                        })
-                    } else {
-                        this.$message({
-                            message: '推送飞书失败',
-                            type: 'error',
-                            duration: 500,
-                            showClose: true
-                        })
-                    }
-                })
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消推送',
-                });
-            });
-
-        },
-        customDisable(item) {
-            console.log(item)
-            return this.originalData.orderStatus === 3 || this.showIsHandle === '2' //|| (item.handleBy !== window.Operator && item.handleBy !== '')
-        },
-        // 扫码
-        onCamera(type) {
-            window.parent.OpenCamera &&
-            window.parent.OpenCamera((res) => {
-                if (res.code == 200) {
-                    this.currentOrder = ''
-                    this.monthlySequence = ''
-                    this.frameNumber = ''
-                    if (type == 'wipOrderNo') {
-                        this.currentOrder = res.data
-                    } else if (type == 'vin') {
-                        this.frameNumber = res.data
-                    } else {
-                        this.monthlySequence = res.data
-                    }
-                    this.handleOrderSearch()
-                }
-            });
-        },
-        isAppEnvironment() {
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            return /iPad|iPhone|iPod/.test(userAgent) ||   // iOS devices
-                /Android/.test(userAgent)
-        },
-        // 查询检验项和问题
-        getData(value) {
-            window.dataItem(value, (data) => {
-                console.log(data, '获取检验项和问题');
-                if (data.code === '0') {
-                    // 保存原始数据
-                    this.originalData = {...data};
-                    // 剔除code和msg
-                    delete this.originalData.code;
-                    delete this.originalData.msg;
-
-                    // 更新界面数据
-                    this.updateUIWithData(data);
-                    this.$message({
-                        message: '查询成功',
-                        type: 'success',
-                        duration: 500,
-                        showClose: true
-                    });
-                } else {
-                    this.$message({
-                        message: data.msg || '查询失败',
-                        type: 'error',
-                        duration: 2000,
-                        showClose: true
-                    });
-                }
-            });
-        },
-        // 使用查询返回的数据更新界面
-        updateUIWithData(data) {
-            // 更新输入框数据
-            this.currentOrder = data.wipOrderNo || '';
-            this.monthlySequence = data.monthSequence || '';
-            this.frameNumber = data.vin || '';
-            this.modelCode = data.productNo || '';
-
-            // 更新检验项目表格数据
-            this.inspectionList = (data.dispositionItem || []).map((item, index) => {
-                let testAttribute = item.testAttribute === 'OK' ? 'OK' : 'NG';
-                return {
-                    ...item,
-                    index: index + 1,
-                    inspectionItem: item.dispositionDesc,
-                    testAttribute: testAttribute,
-                    pushStatus: 0
-                };
-            });
-
-            // 更新问题描述数据
-            this.problemList = (data.questionItem || [])
-                .map(item => {
-                    // 处理问题图片URL，将字符串分割为数组
-                    const imageUrls = item.imgs ? item.imgs.split(',').filter(url => url.trim() !== '') : [];
-                    const imageList = imageUrls.map(url => ({
-                        name: url.split('/').pop(),
-                        url: url
-                    }));
-
-                    // 处理处置图片URL
-                    const handImageUrls = item.handImgs ? item.handImgs.split(',').filter(url => url.trim() !== '') : [];
-                    const handImageList = handImageUrls.map(url => ({
-                        name: url.split('/').pop(),
-                        url: url
-                    }));
-
-                    // 处理确认图片URL
-                    const confirmImageUrls = item.confirmImgs ? item.confirmImgs.split(',').filter(url => url.trim() !== '') : [];
-                    const confirmImageList = confirmImageUrls.map(url => ({
-                        name: url.split('/').pop(),
-                        url: url
-                    }));
-
-                    return {
-                        ...item,
-                        imageList: imageList,
-                        handImageList: handImageList,
-                        confirmImageList: confirmImageList,
-                        // 确保isHandle是数字类型
-                        isHandle: item.isHandle ? Number(item.isHandle) : 0,
-                        pushStatus: 0
-                    };
-                });
-        },
-        toggleCollapse() {
-            this.isCollapsed = !this.isCollapsed;
-        },
-        // 构建查询参数
-        buildQueryParams() {
-            return {
-                wipOrderNo: this.currentOrder,
-                vin: this.frameNumber,
-                monthSequence: this.monthlySequence,
-                workStation: ''
-            };
-        },
-        // 处理订单搜索
-        // 处理订单搜索
-        handleOrderSearch() {
-            // 清除之前的定时器
-            if (this.searchTimer) {
-                clearTimeout(this.searchTimer);
-            }
-
-            // 设置新的定时器（500ms后执行）
-            this.searchTimer = setTimeout(() => {
-                const params = this.buildQueryParams();
-                this.getData(params);
-            }, 500);
-        },
-        // 处理月顺序号搜索
-        handleMonthlySequenceSearch() {
-            // 清除之前的定时器
-            if (this.searchTimer) {
-                clearTimeout(this.searchTimer);
-            }
-
-            // 设置新的定时器（500ms后执行）
-            this.searchTimer = setTimeout(() => {
-                const params = this.buildQueryParams();
-                this.getData(params);
-            }, 500);
-        },
-        // 处理车架号搜索
-        handleFrameNumberSearch() {
-            // 清除之前的定时器
-            if (this.searchTimer) {
-                clearTimeout(this.searchTimer);
-            }
-
-            // 设置新的定时器（500ms后执行）
-            this.searchTimer = setTimeout(() => {
-                const params = this.buildQueryParams();
-                this.getData(params);
-            }, 500);
-        },
-        // 处理检验项是否处置变化
-        handleInspectionIsHandleChange(inspection) {
-            // 更新原始数据
-            const originalInspection = this.originalData.dispositionItem.find(
-                p => p.dispositionId === inspection.dispositionId
-            );
-            if (originalInspection) {
-                originalInspection.isHandle = inspection.isHandle;
-            }
-        },
-        // 处理问题是否处置变化
-        handleIsHandleChange(problem) {
-            // 更新原始数据
-            const originalProblem = this.originalData.questionItem.find(
-                p => p.questionId === problem.questionId
-            );
-            if (originalProblem) {
-                originalProblem.isHandle = problem.isHandle;
-            }
-        },
-        // 设置表格最大高度
-        setTableMaxHeight() {
-            this.tableMaxHeight = window.innerHeight / 3;
-        },
-        // 图片转Base64
-        fileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
-        },
-        // 上传单张处置图片
-        async uploadSingleHandImage(base64Data, questionId) {
-            return new Promise((resolve, reject) => {
-                const params = {
-                    url: [base64Data],
-                    id: questionId,
-                    FilePicker: base64Data
-                };
-                window.saveImgFils(params, (response) => {
-                    if (response.code == 0) {
-                        resolve(response.data);
-                    } else {
-                        reject(new Error(response.msg || '图片上传失败'));
-                    }
-                });
-            });
-        },
-        // 移除单张处置图片
-        removeSingleHandImage(problem, imgIndex) {
-            // 从处置图片列表中移除
-            problem.handImageList.splice(imgIndex, 1);
-            // 更新handImgs字段
-            problem.handImgs = problem.handImageList.map(f => f.url).join(',');
-            // 同步到原始数据
-            this.syncProblemData();
-
-            this.$message({
-                type: 'success',
-                message: '删除成功!'
-            });
-        },
-        handlePictureCardPreview(file) {
-            this.dialogImageUrl = file.url;
-            this.dialogVisible = true;
-        },
-        handleHandPictureCardPreview(file) {
-            this.dialogImageUrl = file.url;
-            this.dialogVisible = true;
-        },
-        // 保存数据
-        async save() {
-            try {
-                // 确保问题数据同步
-                this.syncProblemData();
-                this.syncInspectionData();
-                let saveData = {
-                    ...this.originalData,
-                    questionItem: this.originalData.questionItem.filter(item => item.handleBy === window.Operator || item.handleBy === ''),
-                    dispositionItem: this.originalData.dispositionItem.filter(item => item.handleBy === window.Operator || item.handleBy === ''),
-                    flag: 'Handle',
-                };
-                console.log('保存数据:', saveData);
-
-                // 调用保存接口
-                window.InspectionOnlineSaveAndSubmit(saveData, (response) => {
-                    if (response.code === 0 || response.code === '0') {
-                        this.$message({
-                            message: '保存成功',
-                            type: 'success'
-                        });
-                    } else {
-                        this.$message({
-                            message: response.msg || '保存失败',
-                            type: 'error'
-                        });
-                    }
-                });
-
-            } catch (error) {
-                console.error('保存失败:', error);
-                this.$message({
-                    message: '保存失败: ' + error.message,
-                    type: 'error'
-                });
-            }
-        },
-        syncProblemData() {
-            this.originalData.questionItem = this.problemList.map(problem => {
-                // 查找原始数据中是否已存在该问题
-                const originalProblem = this.originalData.questionItem?.find(
-                    p => p.questionId === problem.questionId
-                ) || {};
-
-                return {
-                    ...originalProblem,
-                    questionId: problem.questionId,
-                    question: problem.question,
-                    imgs: problem.imgs,
-                    imageList: problem.imageList,
-                    handImageList: problem.handImageList,
-                    testBy: problem.testBy,
-                    isHandle: problem.isHandle,
-                    handleReMark: problem.handleReMark,
-                    handImgs: problem.handImgs,
-                    handleBy: problem.handleBy,
-                    isClose: problem.isClose,
-                    confirmReMark: problem.confirmReMark,
-                    confirmImgs: problem.confirmImgs,
-                    confirmBy: problem.confirmBy
-                };
-            });
-        },
-        syncInspectionData() {
-            this.originalData.dispositionItem = this.inspectionList.map(inspection => {
-                // 查找原始数据中是否已存在该问题
-                const originalInspection = this.originalData.dispositionItem?.find(
-                    p => p.dispositionId === inspection.dispositionId
-                ) || {};
-                return {
-                    ...originalInspection,
-                    dispositionId: inspection.dispositionId,
-                    dispositionDesc: inspection.dispositionDesc,
-                    dxDesc: inspection.dxDesc,
-                    testAttribute: inspection.testAttribute,
-                    testBy: inspection.testBy,
-                    isHandle: inspection.isHandle,
-                    handleReMark: inspection.handleReMark,
-                    handImgs: inspection.handImgs,
-                    handleBy: inspection.handleBy,
-                    isClose: inspection.isClose,
-                    confirmReMark: inspection.confirmReMark,
-                    confirmImgs: inspection.confirmImgs,
-                    confirmBy: inspection.confirmBy
-                };
-            });
-        },
-        // 移动端图片上传处理
-        handleMobileUpload(questionId) {
-            // 创建两个文件输入元素
-            const fileInputCamera = document.createElement('input');
-            fileInputCamera.type = 'file';
-            fileInputCamera.accept = 'image/*';
-            fileInputCamera.capture = 'environment'; // 强制使用相机
-            fileInputCamera.style.position = 'fixed';
-            fileInputCamera.style.zIndex = '9999';
-
-            const fileInputGallery = document.createElement('input');
-            fileInputGallery.type = 'file';
-            fileInputGallery.accept = 'image/*';
-            fileInputGallery.multiple = true;
-            fileInputGallery.style.position = 'fixed';
-            fileInputGallery.style.zIndex = '9999';
-
-            const imgLength = this.problemList.find(problem => problem.questionId === questionId)?.handImgs?.split(',') || [];
-
-            // 显示选择对话框
-            this.$msgbox({
-                title: '上传图片',
-                message: '请选择图片来源',
-                showCancelButton: true,
-                showClose: false,
-                closeOnPressEscape: false,
-                closeOnClickModal: false,
-                confirmButtonText: '拍照',
-                cancelButtonText: '从相册选择',
-                customClass: 'my-message-box'
-            }).then(() => {
-                // 用户选择拍照
-                fileInputCamera.onchange = async (event) => {
-                    const files = Array.from(event.target.files);
-                    if (files.length + imgLength.length > 30) {
-                        this.$message.warning(`最多只能上传30张图片，您已经选择了${imgLength.length}张，这次选择了${files.length}张`);
-                        return;
-                    }
-                    await this.processSelectedFiles(files, questionId);
-                };
-                fileInputCamera.click();
-            }).catch(() => {
-                // 用户选择从相册选择
-                fileInputGallery.onchange = async (event) => {
-                    const files = Array.from(event.target.files);
-                    if (files.length + imgLength.length > 30) {
-                        this.$message.warning(`最多只能上传30张图片，您已经选择了${imgLength.length}张，这次选择了${files.length}张`);
-                        return;
-                    }
-                    await this.processSelectedFiles(files, questionId);
-                };
-                fileInputGallery.click();
-            });
-        },
-        // 处理选中的文件
-        async processSelectedFiles(files, questionId) {
-            const problem = this.problemList.find(p => p.questionId === questionId);
-            if (!problem) return;
-            this.$message.info('正在上传图片，请稍候...');
-            try {
-                // 处理每个选中的文件
-                for (const file of files) {
-                    // 转换为base64
-                    const base64Data = await this.fileToBase64(file);
-                    // 上传图片
-                    const serverUrl = await this.uploadSingleHandImage(base64Data, questionId);
-                    // 创建图片对象并添加到列表
-                    const newImage = {
-                        name: file.name,
-                        url: serverUrl,
-                        raw: file
-                    };
-                    problem.handImageList.push(newImage);
-                }
-                problem.handImgs = problem.handImageList.map(f => f.url).join(',');
-                // 同步到原始数据
-                this.syncProblemData();
-                this.$message.success('图片上传成功');
-            } catch (error) {
-                console.error('图片上传失败:', error);
-                this.$message.error('图片上传失败: ' + error.message);
-            }
-        },
-        // 图片预览缩放相关方法
-        zoomIn() {
-            this.previewScale *= 1.2;
-        },
-        zoomOut() {
-            this.previewScale /= 1.2;
-            if (this.previewScale < 0.1) {
-                this.previewScale = 0.1;
-            }
-        },
-        handleWheel(event) {
-            if (event.deltaY < 0) {
-                this.zoomIn();
-            } else {
-                this.zoomOut();
-            }
-        },
-        resetPreviewTransform() {
-            this.previewScale = 1;
-            this.previewTranslateX = 0;
-            this.previewTranslateY = 0;
-        },
-        fitPreviewImage() {
-            this.resetPreviewTransform();
-            this.$nextTick(() => {
-                const image = this.$refs.previewImage;
-                if (image && image.offsetWidth > 0 && image.offsetHeight > 0) {
-                    const scaleX = window.innerWidth / image.offsetWidth;
-                    const scaleY = window.innerHeight / image.offsetHeight;
-                    this.previewScale = Math.min(scaleX, scaleY);
-                }
-            });
-        },
-        onImageLoad() {
-            this.fitPreviewImage();
-        },
-        // 触摸事件处理
-        handleTouchStart(event) {
-            if (event.touches.length === 2) {
-                // 双指触摸，准备缩放
-                this.startTouchDistance = this.getTouchDistance(event.touches);
-                this.startTouchScale = this.previewScale;
-            }
-        },
-        handleTouchMove(event) {
-            if (event.touches.length === 2) {
-                // 双指移动，执行缩放
-                event.preventDefault();
-                const currentDistance = this.getTouchDistance(event.touches);
-                this.previewScale = this.startTouchScale * (currentDistance / this.startTouchDistance);
-
-                // 限制缩放范围
-                if (this.previewScale < 0.1) {
-                    this.previewScale = 0.1;
-                } else if (this.previewScale > 10) {
-                    this.previewScale = 10;
-                }
-            }
-        },
-        handleTouchEnd() {
-            // 重置触摸距离
-            this.startTouchDistance = 0;
-        },
-        // 计算双指间距离
-        getTouchDistance(touches) {
-            const dx = touches[0].clientX - touches[1].clientX;
-            const dy = touches[0].clientY - touches[1].clientY;
-            return Math.sqrt(dx * dx + dy * dy);
-        }
+      // 标签页
+      showIsHandle: "0",
+    };
+  },
+  mounted() {
+    this.isApp = this.isAppEnvironment();
+    // 设置表格最大高度为屏幕的1/3
+    this.setTableMaxHeight();
+    window.addEventListener("resize", this.setTableMaxHeight);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.setTableMaxHeight);
+    // 清理防抖定时器
+    if (this.searchTimer) {
+      clearTimeout(this.searchTimer);
     }
-}
+  },
+  computed: {
+    // 计算单据状态
+    documentStatus() {
+      return this.originalData.orderStatus === 3 ? "已关闭" : "检验中";
+    },
+
+    // 计算检验结果
+    inspectionResult() {
+      return this.problemList.every((item) => item.isClose === 1)
+        ? "合格"
+        : "不合格";
+    },
+
+    // 过滤后的检验项列表
+    filteredInspectionList() {
+      if (this.showIsHandle === "0") {
+        // 显示未处置的项目（排除 testAttribute 为 'OK' 的项目）
+        return this.inspectionList.filter(
+          (inspection) =>
+            inspection.isHandle !== 1 && inspection.testAttribute !== "OK"
+        );
+      } else if (this.showIsHandle === "1") {
+        // 显示已处置未确认的项目
+        return this.inspectionList.filter(
+          (inspection) =>
+            (inspection.isHandle === 1 && inspection.isClose !== 1) ||
+            inspection.testAttribute === "OK"
+        );
+      } else {
+        // 显示已处置已确认的项目
+        return this.inspectionList.filter(
+          (inspection) => inspection.isHandle === 1 && inspection.isClose === 1
+        );
+      }
+    },
+
+    // 过滤后的问题列表
+    filteredProblemList() {
+      if (this.showIsHandle === "0") {
+        // 显示未处置的问题
+        return this.problemList.filter((problem) => problem.isHandle !== 1);
+      } else if (this.showIsHandle === "1") {
+        // 显示已处置未确认的问题
+        return this.problemList.filter(
+          (problem) => problem.isHandle === 1 && problem.isClose !== 1
+        );
+      } else {
+        // 显示已处置已确认的问题
+        return this.problemList.filter(
+          (problem) => problem.isHandle === 1 && problem.isClose === 1
+        );
+      }
+    },
+
+    // 图片预览样式计算属性
+    previewImageStyle() {
+      return {
+        transform: `scale(${this.previewScale}) translate(${this.previewTranslateX}px, ${this.previewTranslateY}px)`,
+        transition: this.isTransitioning ? "transform 0.2s ease" : "none",
+      };
+    },
+  },
+  methods: {
+    handleCloseDialog(type) {
+      let saveData = {};
+      if (type === "HandleInspection") {
+        this.dialogTestVisible = false;
+        console.log(this.dialogTestData, "HandleInspection");
+        let aa = {
+          ...this.dialogTestData,
+        };
+        const dispositionId = aa.dispositionId;
+        const isHandle = aa.isHandle;
+        const handleReMark = aa.handleReMark;
+        console.log(
+          dispositionId,
+          "questionId",
+          isHandle,
+          "isHandle",
+          handleReMark,
+          "handleReMark"
+        );
+        saveData = {
+          flag: type,
+          id: dispositionId,
+          isHandle: isHandle,
+          handleReMark: handleReMark,
+        };
+        console.log(saveData, "saveData");
+        // 保存数据
+        window.InspectionOnlineSingleSave(saveData, (res) => {
+          this.inspectionList.find(
+            (item) => item.dispositionId === saveData.id
+          ).handleBy = res.handleBy;
+        });
+      } else if (type === "HandleQuestion") {
+        this.dialogProblemVisible = false;
+        console.log(this.dialogProblemData, "HandleQuestion");
+        let aa = {
+          ...this.dialogProblemData,
+        };
+        console.log(aa, "aa");
+        const questionId = aa.questionId;
+        const isHandle = aa.isHandle;
+        const handleReMark = aa.handleReMark;
+        const handImgs = aa.handImgs;
+        console.log(
+          questionId,
+          "questionId",
+          isHandle,
+          "isHandle",
+          handleReMark,
+          "handleReMark",
+          handImgs,
+          "handImgs"
+        );
+        saveData = {
+          flag: type,
+          id: questionId,
+          isHandle: isHandle,
+          handleReMark: handleReMark,
+          handleImg: handImgs,
+        };
+        console.log(saveData, "saveData");
+        // 保存数据
+        window.InspectionOnlineSingleSave(saveData, (res) => {
+          this.problemList.find(
+            (item) => item.questionId === saveData.id
+          ).handleBy = res.handleBy;
+        });
+      }
+      console.log(saveData, "saveData");
+    },
+    handleOpenDialog(item, index, type) {
+      if (this.pushFlag) {
+        this.pushFlag = false;
+        return;
+      }
+      this.dialogIndex = index;
+      if (type === "inspection") {
+        this.dialogTestData = item;
+        // 避免图片预览被覆盖
+        this.dialogTestVisible = this.dialogVisible !== true;
+        console.log(this.dialogTestData);
+      } else if (type === "problem") {
+        this.dialogProblemData = item;
+        // 避免图片预览被覆盖
+        this.dialogProblemVisible = this.dialogVisible !== true;
+        console.log(this.dialogProblemData);
+      }
+    },
+    // 推送飞书
+    pushFeiShu(data, type) {
+      this.pushFlag = true;
+      this.$msgbox({
+        title: "推送飞书",
+        message: "是否推送飞书？再次推送需要退出重进",
+        showCancelButton: true,
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        customClass: "my-message-box",
+      })
+        .then(() => {
+          let pushData = {
+            ...this.originalData,
+          };
+          if (type === "inspection") {
+            pushData = {
+              ...pushData,
+              dispositionItem: this.originalData.dispositionItem.filter(
+                (item) =>
+                  item.dispositionId === data.dispositionId &&
+                  item.testAttribute !== "OK" &&
+                  item.dxDesc !== "" &&
+                  item.dispositionDesc !== ""
+              ),
+              questionItem: [],
+            };
+            data.pushStatus = 1;
+          } else if (type === "problem") {
+            pushData = {
+              ...pushData,
+              questionItem: this.originalData.questionItem.filter(
+                (item) =>
+                  item.questionId === data.questionId && item.question !== ""
+              ),
+              dispositionItem: [],
+            };
+            data.pushStatus = 1;
+          }
+          console.log(pushData, "推送飞书");
+          window.pushFeiShu(pushData, (res) => {
+            if (res.code === "0") {
+              this.$message({
+                message: "推送飞书成功",
+                type: "success",
+                duration: 500,
+                showClose: true,
+              });
+            } else {
+              this.$message({
+                message: "推送飞书失败",
+                type: "error",
+                duration: 500,
+                showClose: true,
+              });
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消推送",
+          });
+        });
+    },
+    customDisable(item) {
+      console.log(item);
+      return this.originalData.orderStatus === 3 || this.showIsHandle === "2"; //|| (item.handleBy !== window.Operator && item.handleBy !== '')
+    },
+    // 扫码
+    onCamera(type) {
+      window.parent.OpenCamera &&
+        window.parent.OpenCamera((res) => {
+          if (res.code == 200) {
+            this.currentOrder = "";
+            this.monthlySequence = "";
+            this.frameNumber = "";
+            if (type == "wipOrderNo") {
+              this.currentOrder = res.data;
+            } else if (type == "vin") {
+              this.frameNumber = res.data;
+            } else {
+              this.monthlySequence = res.data;
+            }
+            this.handleOrderSearch();
+          }
+        });
+    },
+    isAppEnvironment() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      return (
+        /iPad|iPhone|iPod/.test(userAgent) || // iOS devices
+        /Android/.test(userAgent)
+      );
+    },
+    // 查询检验项和问题
+    getData(value) {
+      window.dataItem(value, (data) => {
+        console.log(data, "获取检验项和问题");
+        if (data.code === "0") {
+          // 保存原始数据
+          this.originalData = { ...data };
+          // 剔除code和msg
+          delete this.originalData.code;
+          delete this.originalData.msg;
+
+          // 更新界面数据
+          this.updateUIWithData(data);
+          this.$message({
+            message: "查询成功",
+            type: "success",
+            duration: 500,
+            showClose: true,
+          });
+        } else {
+          this.$message({
+            message: data.msg || "查询失败",
+            type: "error",
+            duration: 2000,
+            showClose: true,
+          });
+        }
+      });
+    },
+    // 使用查询返回的数据更新界面
+    updateUIWithData(data) {
+      // 更新输入框数据
+      this.currentOrder = data.wipOrderNo || "";
+      this.monthlySequence = data.monthSequence || "";
+      this.frameNumber = data.vin || "";
+      this.modelCode = data.productNo || "";
+
+      // 更新检验项目表格数据
+      this.inspectionList = (data.dispositionItem || []).map((item, index) => {
+        let testAttribute = item.testAttribute === "OK" ? "OK" : "NG";
+
+        // 解析文件
+        const fileNames = item.fileNames ? item.fileNames.split(",") : [];
+        const filePaths = item.filePaths ? item.filePaths.split(",") : [];
+        const fileList = fileNames
+          .map((name, idx) => ({
+            name: name.trim(),
+            path: filePaths[idx] ? filePaths[idx].trim() : "",
+          }))
+          .filter((f) => f.name && f.path);
+
+        return {
+          ...item,
+          index: index + 1,
+          inspectionItem: item.dispositionDesc,
+          testAttribute: testAttribute,
+          pushStatus: 0,
+          fileList: fileList,
+        };
+      });
+
+      // 更新问题描述数据
+      this.problemList = (data.questionItem || []).map((item) => {
+        // 处理问题图片URL，将字符串分割为数组
+        const imageUrls = item.imgs
+          ? item.imgs.split(",").filter((url) => url.trim() !== "")
+          : [];
+        const imageList = imageUrls.map((url) => ({
+          name: url.split("/").pop(),
+          url: url,
+        }));
+
+        // 处理处置图片URL
+        const handImageUrls = item.handImgs
+          ? item.handImgs.split(",").filter((url) => url.trim() !== "")
+          : [];
+        const handImageList = handImageUrls.map((url) => ({
+          name: url.split("/").pop(),
+          url: url,
+        }));
+
+        // 处理确认图片URL
+        const confirmImageUrls = item.confirmImgs
+          ? item.confirmImgs.split(",").filter((url) => url.trim() !== "")
+          : [];
+        const confirmImageList = confirmImageUrls.map((url) => ({
+          name: url.split("/").pop(),
+          url: url,
+        }));
+
+        return {
+          ...item,
+          imageList: imageList,
+          handImageList: handImageList,
+          confirmImageList: confirmImageList,
+          // 确保isHandle是数字类型
+          isHandle: item.isHandle ? Number(item.isHandle) : 0,
+          pushStatus: 0,
+        };
+      });
+    },
+    toggleCollapse() {
+      this.isCollapsed = !this.isCollapsed;
+    },
+    // 构建查询参数
+    buildQueryParams() {
+      return {
+        wipOrderNo: this.currentOrder,
+        vin: this.frameNumber,
+        monthSequence: this.monthlySequence,
+        workStation: "",
+      };
+    },
+    // 处理订单搜索
+    // 处理订单搜索
+    handleOrderSearch() {
+      // 清除之前的定时器
+      if (this.searchTimer) {
+        clearTimeout(this.searchTimer);
+      }
+
+      // 设置新的定时器（500ms后执行）
+      this.searchTimer = setTimeout(() => {
+        const params = this.buildQueryParams();
+        this.getData(params);
+      }, 500);
+    },
+    // 处理月顺序号搜索
+    handleMonthlySequenceSearch() {
+      // 清除之前的定时器
+      if (this.searchTimer) {
+        clearTimeout(this.searchTimer);
+      }
+
+      // 设置新的定时器（500ms后执行）
+      this.searchTimer = setTimeout(() => {
+        const params = this.buildQueryParams();
+        this.getData(params);
+      }, 500);
+    },
+    // 处理车架号搜索
+    handleFrameNumberSearch() {
+      // 清除之前的定时器
+      if (this.searchTimer) {
+        clearTimeout(this.searchTimer);
+      }
+
+      // 设置新的定时器（500ms后执行）
+      this.searchTimer = setTimeout(() => {
+        const params = this.buildQueryParams();
+        this.getData(params);
+      }, 500);
+    },
+    // 处理检验项是否处置变化
+    handleInspectionIsHandleChange(inspection) {
+      // 更新原始数据
+      const originalInspection = this.originalData.dispositionItem.find(
+        (p) => p.dispositionId === inspection.dispositionId
+      );
+      if (originalInspection) {
+        originalInspection.isHandle = inspection.isHandle;
+      }
+    },
+    // 处理问题是否处置变化
+    handleIsHandleChange(problem) {
+      // 更新原始数据
+      const originalProblem = this.originalData.questionItem.find(
+        (p) => p.questionId === problem.questionId
+      );
+      if (originalProblem) {
+        originalProblem.isHandle = problem.isHandle;
+      }
+    },
+    // 设置表格最大高度
+    setTableMaxHeight() {
+      this.tableMaxHeight = window.innerHeight / 3;
+    },
+    // 图片转Base64
+    fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
+    },
+    // 上传单张处置图片
+    async uploadSingleHandImage(base64Data, questionId) {
+      return new Promise((resolve, reject) => {
+        const params = {
+          url: [base64Data],
+          id: questionId,
+          FilePicker: base64Data,
+        };
+        window.saveImgFils(params, (response) => {
+          if (response.code == 0) {
+            resolve(response.data);
+          } else {
+            reject(new Error(response.msg || "图片上传失败"));
+          }
+        });
+      });
+    },
+    // 移除单张处置图片
+    removeSingleHandImage(problem, imgIndex) {
+      // 从处置图片列表中移除
+      problem.handImageList.splice(imgIndex, 1);
+      // 更新handImgs字段
+      problem.handImgs = problem.handImageList.map((f) => f.url).join(",");
+      // 同步到原始数据
+      this.syncProblemData();
+
+      this.$message({
+        type: "success",
+        message: "删除成功!",
+      });
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    handleHandPictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    // 保存数据
+    async save() {
+      try {
+        // 确保问题数据同步
+        this.syncProblemData();
+        this.syncInspectionData();
+        let saveData = {
+          ...this.originalData,
+          questionItem: this.originalData.questionItem.filter(
+            (item) => item.handleBy === window.Operator || item.handleBy === ""
+          ),
+          dispositionItem: this.originalData.dispositionItem.filter(
+            (item) => item.handleBy === window.Operator || item.handleBy === ""
+          ),
+          flag: "Handle",
+        };
+        console.log("保存数据:", saveData);
+
+        // 调用保存接口
+        window.InspectionOnlineSaveAndSubmit(saveData, (response) => {
+          if (response.code === 0 || response.code === "0") {
+            this.$message({
+              message: "保存成功",
+              type: "success",
+            });
+          } else {
+            this.$message({
+              message: response.msg || "保存失败",
+              type: "error",
+            });
+          }
+        });
+      } catch (error) {
+        console.error("保存失败:", error);
+        this.$message({
+          message: "保存失败: " + error.message,
+          type: "error",
+        });
+      }
+    },
+    syncProblemData() {
+      this.originalData.questionItem = this.problemList.map((problem) => {
+        // 查找原始数据中是否已存在该问题
+        const originalProblem =
+          this.originalData.questionItem?.find(
+            (p) => p.questionId === problem.questionId
+          ) || {};
+
+        return {
+          ...originalProblem,
+          questionId: problem.questionId,
+          question: problem.question,
+          imgs: problem.imgs,
+          imageList: problem.imageList,
+          handImageList: problem.handImageList,
+          testBy: problem.testBy,
+          isHandle: problem.isHandle,
+          handleReMark: problem.handleReMark,
+          handImgs: problem.handImgs,
+          handleBy: problem.handleBy,
+          isClose: problem.isClose,
+          confirmReMark: problem.confirmReMark,
+          confirmImgs: problem.confirmImgs,
+          confirmBy: problem.confirmBy,
+        };
+      });
+    },
+    syncInspectionData() {
+      this.originalData.dispositionItem = this.inspectionList.map(
+        (inspection) => {
+          // 查找原始数据中是否已存在该问题
+          const originalInspection =
+            this.originalData.dispositionItem?.find(
+              (p) => p.dispositionId === inspection.dispositionId
+            ) || {};
+          return {
+            ...originalInspection,
+            dispositionId: inspection.dispositionId,
+            dispositionDesc: inspection.dispositionDesc,
+            dxDesc: inspection.dxDesc,
+            testAttribute: inspection.testAttribute,
+            testBy: inspection.testBy,
+            isHandle: inspection.isHandle,
+            handleReMark: inspection.handleReMark,
+            handImgs: inspection.handImgs,
+            handleBy: inspection.handleBy,
+            isClose: inspection.isClose,
+            confirmReMark: inspection.confirmReMark,
+            confirmImgs: inspection.confirmImgs,
+            confirmBy: inspection.confirmBy,
+          };
+        }
+      );
+    },
+    // 移动端图片上传处理
+    handleMobileUpload(questionId) {
+      // 创建两个文件输入元素
+      const fileInputCamera = document.createElement("input");
+      fileInputCamera.type = "file";
+      fileInputCamera.accept = "image/*";
+      fileInputCamera.capture = "environment"; // 强制使用相机
+      fileInputCamera.style.position = "fixed";
+      fileInputCamera.style.zIndex = "9999";
+
+      const fileInputGallery = document.createElement("input");
+      fileInputGallery.type = "file";
+      fileInputGallery.accept = "image/*";
+      fileInputGallery.multiple = true;
+      fileInputGallery.style.position = "fixed";
+      fileInputGallery.style.zIndex = "9999";
+
+      const imgLength =
+        this.problemList
+          .find((problem) => problem.questionId === questionId)
+          ?.handImgs?.split(",") || [];
+
+      // 显示选择对话框
+      this.$msgbox({
+        title: "上传图片",
+        message: "请选择图片来源",
+        showCancelButton: true,
+        showClose: false,
+        closeOnPressEscape: false,
+        closeOnClickModal: false,
+        confirmButtonText: "拍照",
+        cancelButtonText: "从相册选择",
+        customClass: "my-message-box",
+      })
+        .then(() => {
+          // 用户选择拍照
+          fileInputCamera.onchange = async (event) => {
+            const files = Array.from(event.target.files);
+            if (files.length + imgLength.length > 30) {
+              this.$message.warning(
+                `最多只能上传30张图片，您已经选择了${imgLength.length}张，这次选择了${files.length}张`
+              );
+              return;
+            }
+            await this.processSelectedFiles(files, questionId);
+          };
+          fileInputCamera.click();
+        })
+        .catch(() => {
+          // 用户选择从相册选择
+          fileInputGallery.onchange = async (event) => {
+            const files = Array.from(event.target.files);
+            if (files.length + imgLength.length > 30) {
+              this.$message.warning(
+                `最多只能上传30张图片，您已经选择了${imgLength.length}张，这次选择了${files.length}张`
+              );
+              return;
+            }
+            await this.processSelectedFiles(files, questionId);
+          };
+          fileInputGallery.click();
+        });
+    },
+    // 处理选中的文件
+    async processSelectedFiles(files, questionId) {
+      const problem = this.problemList.find((p) => p.questionId === questionId);
+      if (!problem) return;
+      this.$message.info("正在上传图片，请稍候...");
+      try {
+        // 处理每个选中的文件
+        for (const file of files) {
+          // 转换为base64
+          const base64Data = await this.fileToBase64(file);
+          // 上传图片
+          const serverUrl = await this.uploadSingleHandImage(
+            base64Data,
+            questionId
+          );
+          // 创建图片对象并添加到列表
+          const newImage = {
+            name: file.name,
+            url: serverUrl,
+            raw: file,
+          };
+          problem.handImageList.push(newImage);
+        }
+        problem.handImgs = problem.handImageList.map((f) => f.url).join(",");
+        // 同步到原始数据
+        this.syncProblemData();
+        this.$message.success("图片上传成功");
+      } catch (error) {
+        console.error("图片上传失败:", error);
+        this.$message.error("图片上传失败: " + error.message);
+      }
+    },
+    // 图片预览缩放相关方法
+    zoomIn() {
+      this.previewScale *= 1.2;
+    },
+    zoomOut() {
+      this.previewScale /= 1.2;
+      if (this.previewScale < 0.1) {
+        this.previewScale = 0.1;
+      }
+    },
+    handleWheel(event) {
+      if (event.deltaY < 0) {
+        this.zoomIn();
+      } else {
+        this.zoomOut();
+      }
+    },
+    resetPreviewTransform() {
+      this.previewScale = 1;
+      this.previewTranslateX = 0;
+      this.previewTranslateY = 0;
+    },
+    fitPreviewImage() {
+      this.resetPreviewTransform();
+      this.$nextTick(() => {
+        const image = this.$refs.previewImage;
+        if (image && image.offsetWidth > 0 && image.offsetHeight > 0) {
+          const scaleX = window.innerWidth / image.offsetWidth;
+          const scaleY = window.innerHeight / image.offsetHeight;
+          this.previewScale = Math.min(scaleX, scaleY);
+        }
+      });
+    },
+    onImageLoad() {
+      this.fitPreviewImage();
+    },
+    // 触摸事件处理
+    handleTouchStart(event) {
+      if (event.touches.length === 2) {
+        // 双指触摸，准备缩放
+        this.startTouchDistance = this.getTouchDistance(event.touches);
+        this.startTouchScale = this.previewScale;
+      }
+    },
+    handleTouchMove(event) {
+      if (event.touches.length === 2) {
+        // 双指移动，执行缩放
+        event.preventDefault();
+        const currentDistance = this.getTouchDistance(event.touches);
+        this.previewScale =
+          this.startTouchScale * (currentDistance / this.startTouchDistance);
+
+        // 限制缩放范围
+        if (this.previewScale < 0.1) {
+          this.previewScale = 0.1;
+        } else if (this.previewScale > 10) {
+          this.previewScale = 10;
+        }
+      }
+    },
+    handleTouchEnd() {
+      // 重置触摸距离
+      this.startTouchDistance = 0;
+    },
+    // 计算双指间距离
+    getTouchDistance(touches) {
+      const dx = touches[0].clientX - touches[1].clientX;
+      const dy = touches[0].clientY - touches[1].clientY;
+      return Math.sqrt(dx * dx + dy * dy);
+    },
+    // 根据文件类型返回不同图标
+    getFileIcon(fileName) {
+      const ext = fileName.split(".").pop().toLowerCase();
+      const iconMap = {
+        pdf: "el-icon-document",
+        doc: "el-icon-document",
+        docx: "el-icon-document",
+        xls: "el-icon-s-grid",
+        xlsx: "el-icon-s-grid",
+        jpg: "el-icon-picture",
+        jpeg: "el-icon-picture",
+        png: "el-icon-picture",
+        gif: "el-icon-picture",
+      };
+      return iconMap[ext] || "el-icon-document";
+    },
+    // 判断是否为PDF文件
+    isPdfFile(fileName) {
+      const ext = fileName.split(".").pop().toLowerCase();
+      return ext === "pdf";
+    },
+    // 判断是否为图片文件
+    isImageFile(fileName) {
+      const ext = fileName.split(".").pop().toLowerCase();
+      return ["jpg", "jpeg", "png", "gif", "bmp", "webp"].includes(ext);
+    },
+    // 文件预览/下载
+    handleFilePreview(file) {
+      if (!file.path) {
+        this.$message.warning("文件路径不存在");
+        return;
+      }
+      window.open(file.path, "_blank");
+    },
+  },
+};
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .dl-conclusion {
   font-weight: bold;
   padding: 5px;
@@ -2052,7 +2402,6 @@ export default {
   align-items: center;
 }
 
-
 /* 表格样式调整 */
 ::v-deep .inspection-table .el-table__header-wrapper th {
   background-color: #f5f7fa;
@@ -2120,7 +2469,7 @@ export default {
 ::v-deep .el-radio-group {
   display: flex;
   white-space: nowrap;
-  padding-top: 8px
+  padding-top: 8px;
 }
 
 ::v-deep .el-radio {
@@ -2154,5 +2503,41 @@ export default {
   top: 50% !important;
   transform: translateY(-50%) !important;
   max-width: 90vw;
+}
+
+/* 文件列表样式 */
+.file-list {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .file-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    background: #f5f7fa;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    i {
+      margin-right: 6px;
+      color: #409eff;
+    }
+
+    .file-name {
+      font-size: 14px;
+      color: #606266;
+    }
+
+    &:hover {
+      background: #e6f7ff;
+
+      .file-name {
+        color: #409eff;
+      }
+    }
+  }
 }
 </style>
