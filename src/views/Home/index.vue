@@ -382,6 +382,36 @@
                 >
                 </el-input>
               </div>
+              <!-- 责任班组 -->
+              <div class="problem-row">
+                <span class="problem-label">责任班组：</span>
+                <el-select
+                  v-model="problem.respTeam"
+                  filterable
+                  disabled
+                  size="small"
+                >
+                  <el-option
+                    v-for="item in respTeamOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
+              </div>
+              <!-- 责任人 -->
+              <div class="problem-row">
+                <span class="problem-label">责任人：</span>
+                <el-input
+                  v-model="problem.respEmployee"
+                  class="problem-input"
+                  disabled
+                  type="textarea"
+                  autosize
+                >
+                </el-input>
+              </div>
               <!-- 是否处置 -->
               <div class="problem-row">
                 <span style="color: #409eff" class="problem-label"
@@ -862,10 +892,16 @@ export default {
 
       // 标签页
       showIsHandle: "0",
+      // 责任班组选项
+      respTeamOptions: [],
     };
   },
   mounted() {
     this.isApp = this.isAppEnvironment();
+    // 获取责任班组选项
+    window.getRespTeam((res) => {
+      this.respTeamOptions = res;
+    });
     // 设置表格最大高度为屏幕的1/3
     this.setTableMaxHeight();
     window.addEventListener("resize", this.setTableMaxHeight);
@@ -1222,6 +1258,8 @@ export default {
           // 确保isHandle是数字类型
           isHandle: item.isHandle ? Number(item.isHandle) : 0,
           pushStatus: 0,
+          respTeam: item.respTeam || "",
+          respEmployee: item.respEmployee || "",
         };
       });
     },
