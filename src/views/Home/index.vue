@@ -837,10 +837,8 @@ export default {
       modelCode: "",
 
       // 新增数据
-      tableMaxHeight: 300,
       inspectionList: [],
       problemList: [],
-      nextProblemId: 1,
 
       // 图片上传相关
       dialogImageUrl: "",
@@ -976,10 +974,9 @@ export default {
           isHandle: this.dialogTestData.isHandle,
           handleReMark: this.dialogTestData.handleReMark,
         };
-        console.log("处置检验项请求：", JSON.parse(JSON.stringify(saveData)));
+
         // 保存数据
         window.InspectionOnlineSingleSave(saveData, (res) => {
-          console.log("处置检验项响应：", JSON.parse(JSON.stringify(res)));
           this.inspectionList.find(
             (item) => item.dispositionId === saveData.id
           ).handleBy = res.handleBy;
@@ -993,10 +990,9 @@ export default {
           handleReMark: this.dialogProblemData.handleReMark,
           handleImg: this.dialogProblemData.handImgs,
         };
-        console.log("处置问题项请求：", JSON.parse(JSON.stringify(saveData)));
+
         // 保存数据
         window.InspectionOnlineSingleSave(saveData, (res) => {
-          console.log("处置问题项响应：", JSON.parse(JSON.stringify(res)));
           this.problemList.find(
             (item) => item.questionId === saveData.id
           ).handleBy = res.handleBy;
@@ -1015,8 +1011,8 @@ export default {
         this.dialogProblemVisible = this.dialogVisible !== true;
       }
     },
-    customDisable(_item) {
-      return this.originalData.orderStatus === 3 || this.showIsHandle === "2"; //|| (_item.handleBy !== window.Operator && _item.handleBy !== '')
+    customDisable() {
+      return this.originalData.orderStatus === 3 || this.showIsHandle === "2";
     },
     // 扫码
     onCamera(type) {
@@ -1046,9 +1042,7 @@ export default {
     },
     // 查询检验项和问题
     getData(value) {
-      console.log("查询检验项和问题请求：", JSON.parse(JSON.stringify(value)));
       window.dataItem(value, (data) => {
-        console.log("查询检验项和问题响应：", JSON.parse(JSON.stringify(data)));
         if (data.code === "0") {
           // 保存原始数据
           this.originalData = { ...data };
@@ -1225,7 +1219,7 @@ export default {
       this.tableMaxHeight = window.innerHeight / 3;
     },
     // 图片压缩
-    compressImage(file, maxWidth = 2048, maxHeight = 2048, quality = 0.90) {
+    compressImage(file, maxWidth = 2048, maxHeight = 2048, quality = 0.9) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -1236,27 +1230,34 @@ export default {
             // 计算压缩后的尺寸
             let width = img.width;
             let height = img.height;
-            
+
             if (width > maxWidth || height > maxHeight) {
               const ratio = Math.min(maxWidth / width, maxHeight / height);
               width = Math.floor(width * ratio);
               height = Math.floor(height * ratio);
             }
-            
+
             // 创建canvas进行压缩
-            const canvas = document.createElement('canvas');
+            const canvas = document.createElement("canvas");
             canvas.width = width;
             canvas.height = height;
-            const ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, width, height);
-            
+
             // 转为JPEG格式的base64
-            const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
-            console.log("图片压缩请求：", JSON.parse(JSON.stringify({
-              原始尺寸: `${img.width}x${img.height}`,
-              压缩后尺寸: `${width}x${height}`,
-              压缩后大小: `${(compressedBase64.length / 1024).toFixed(1)}KB`
-            })));
+            const compressedBase64 = canvas.toDataURL("image/jpeg", quality);
+            console.log(
+              "图片压缩请求：",
+              JSON.parse(
+                JSON.stringify({
+                  原始尺寸: `${img.width}x${img.height}`,
+                  压缩后尺寸: `${width}x${height}`,
+                  压缩后大小: `${(compressedBase64.length / 1024).toFixed(
+                    1
+                  )}KB`,
+                })
+              )
+            );
             resolve(compressedBase64);
           };
           img.onerror = (error) => reject(error);
@@ -1319,11 +1320,9 @@ export default {
           ),
           flag: "Handle",
         };
-        console.log("保存数据请求：", JSON.parse(JSON.stringify(saveData)));
 
         // 调用保存接口
         window.InspectionOnlineSaveAndSubmit(saveData, (response) => {
-          console.log("保存数据响应：", JSON.parse(JSON.stringify(response)));
           if (response.code === 0 || response.code === "0") {
             this.$message({
               message: "保存成功",
@@ -1337,7 +1336,6 @@ export default {
           }
         });
       } catch (error) {
-        console.log("保存失败：", JSON.parse(JSON.stringify(error)));
         this.$message({
           message: "保存失败: " + error.message,
           type: "error",
@@ -1489,7 +1487,6 @@ export default {
         this.syncProblemData();
         this.$message.success("图片上传成功");
       } catch (error) {
-        console.log("图片上传失败：", JSON.parse(JSON.stringify(error)));
         this.$message.error("图片上传失败: " + error.message);
       }
     },
@@ -1580,15 +1577,7 @@ export default {
       return iconMap[ext] || "el-icon-document";
     },
     // 判断是否为PDF文件
-    isPdfFile(fileName) {
-      const ext = fileName.split(".").pop().toLowerCase();
-      return ext === "pdf";
-    },
     // 判断是否为图片文件
-    isImageFile(fileName) {
-      const ext = fileName.split(".").pop().toLowerCase();
-      return ["jpg", "jpeg", "png", "gif", "bmp", "webp"].includes(ext);
-    },
     // 文件预览/下载
     handleFilePreview(file) {
       if (!file.path) {
