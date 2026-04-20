@@ -13,6 +13,16 @@ window.getRespTeam = function (callback) {
   ];
   callback(obj);
 };
+// 获取责任工作中心选项
+window.getRespWorkCenter = function (callback) {
+  let obj = [
+    { value: "WC001", label: "焊装车间" },
+    { value: "WC002", label: "涂装车间" },
+    { value: "WC003", label: "总装车间" },
+    { value: "WC004", label: "质检中心" },
+  ];
+  callback(obj);
+};
 // 获取工位列表
 window.getSelectionList = function (callback) {
   // 入参 data
@@ -353,6 +363,7 @@ window.dataItem = function (Level, callback) {
         confirmImgs:
           "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg,https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
         confirmBy: "3",
+        respWorkCenter: "WC001",
       },
       {
         questionId: 202,
