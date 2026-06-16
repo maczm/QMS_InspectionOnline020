@@ -364,25 +364,23 @@
                 >
                 </el-input>
               </div>
-              <!-- 责任班组 -->
+              <!-- 责任工作中心 -->
               <div class="problem-row">
-                <span class="problem-label">责任班组：</span>
-                <el-input
-                  v-model="problem.respTeam"
-                  class="problem-input"
+                <span class="problem-label">责任工作中心：</span>
+                <el-select
+                  v-model="problem.respWorkCenter"
+                  filterable
                   disabled
+                  size="small"
                 >
-                </el-input>
-              </div>
-              <!-- 责任人 -->
-              <div class="problem-row">
-                <span class="problem-label">责任人：</span>
-                <el-input
-                  v-model="problem.respEmployee"
-                  class="problem-input"
-                  disabled
-                >
-                </el-input>
+                  <el-option
+                    v-for="item in respWorkCenterOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
               </div>
               <!-- 是否处置 -->
               <div class="problem-row">
@@ -714,25 +712,23 @@
         >
         </el-input>
       </div>
-      <!-- 责任班组 -->
+      <!-- 责任工作中心 -->
       <div class="problem-row">
-        <span class="problem-label">责任班组：</span>
-        <el-input
-          v-model="dialogProblemData.respTeam"
-          class="problem-input"
+        <span class="problem-label">责任工作中心：</span>
+        <el-select
+          v-model="dialogProblemData.respWorkCenter"
+          filterable
           disabled
+          size="small"
         >
-        </el-input>
-      </div>
-      <!-- 责任人 -->
-      <div class="problem-row">
-        <span class="problem-label">责任人：</span>
-        <el-input
-          v-model="dialogProblemData.respEmployee"
-          class="problem-input"
-          disabled
-        >
-        </el-input>
+          <el-option
+            v-for="item in respWorkCenterOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
       </div>
       <!-- 是否处置 -->
       <div class="problem-row">
@@ -882,15 +878,19 @@ export default {
       // 标签页
       showIsHandle: "0",
 
-      // 责任班组选项
-      respTeamOptions: [],
+      // 责任工作中心选项
+      respWorkCenterOptions: [
+        { value: '冲焊工作中心', label: '冲焊工作中心' },
+        { value: '涂装工作中心', label: '涂装工作中心' },
+        { value: '调试工作中心', label: '调试工作中心' },
+        { value: '驾驶室工作中心', label: '驾驶室工作中心' },
+        { value: '底盘分装工作中心', label: '底盘分装工作中心' },
+        { value: '底盘装配工作中心', label: '底盘装配工作中心' },
+      ],
     };
   },
   mounted() {
     this.isApp = this.isAppEnvironment();
-    window.getRespTeam((res) => {
-      this.respTeamOptions = res;
-    });
     // 设置表格最大高度为屏幕的1/3
     this.setTableMaxHeight();
     window.addEventListener("resize", this.setTableMaxHeight);
@@ -1147,8 +1147,7 @@ export default {
           // 确保isHandle是数字类型
           isHandle: item.isHandle ? Number(item.isHandle) : 0,
           pushStatus: 0,
-          respTeam: item.respTeam || "",
-          respEmployee: item.respEmployee || "",
+          respWorkCenter: item.respWorkCenter || "",
         };
       });
     },
@@ -1367,8 +1366,7 @@ export default {
           imgs: problem.imgs,
           imageList: problem.imageList,
           handImageList: problem.handImageList,
-          respTeam: problem.respTeam,
-          respEmployee: problem.respEmployee,
+          respWorkCenter: problem.respWorkCenter,
           testBy: problem.testBy,
           isHandle: problem.isHandle,
           handleReMark: problem.handleReMark,
